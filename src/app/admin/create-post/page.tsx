@@ -29,7 +29,6 @@ export default function CreatePostPage() {
       {/*Add Main Picture */}
       <PictureChooserMain/>
       <div className="absolute bg-amber-200 p-10 bottom-10 right-10 rounded-lg z-10">
-        {" "}
         Preview
       </div>
       <QuillEditorWrapper />

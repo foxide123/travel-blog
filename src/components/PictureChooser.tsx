@@ -1,104 +1,68 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faTrash,
-  faPlusCircle,
-  faImage,
-} from "@fortawesome/free-solid-svg-icons";
-import ImageCropper from "@/components/ImageCropper";
+import { faPlusCircle, faImage } from "@fortawesome/free-solid-svg-icons";
 
 export default function PictureChooserMain() {
-  const [within, setWithin] = useState<"canvas" | "image" | "none">("canvas");
-  const [croppedImage, setCroppedImage] = useState<string>("");
-
-  // Create refs for the input and the image element.
   const inputRef = useRef<HTMLInputElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
 
-  const imgPickerRef = useRef<HTMLDivElement>(null);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  const handleCrop = (blob: Blob | MediaSource) => {
-    setCroppedImage(URL.createObjectURL(blob));
-  };
-
-  useEffect(() => {
     const reader = new FileReader();
-    const input = inputRef.current;
-    const img = imgRef.current;
-    const imgPicker = imgPickerRef.current;
-    if (!input || !img) return;
-
-    // When the reader loads the file, set the image's src to the data URL.
-    const handleReaderLoad = (e: ProgressEvent<FileReader>) => {
-      if (e.target && typeof e.target.result === "string") {
-        imgPicker!.style.display = "none";
-        img.src = e.target.result;
+    reader.onload = (event) => {
+      if (event.target && typeof event.target.result === "string") {
+        setImageSrc(event.target.result);
       }
     };
-
-    reader.addEventListener("load", handleReaderLoad);
-
-    // When the file input changes, read the first file.
-    const handleInputChange = (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      if (target.files && target.files[0]) {
-        reader.readAsDataURL(target.files[0]);
-      }
-    };
-
-    input.addEventListener("change", handleInputChange);
-
-    // Cleanup the event listeners on unmount.
-    return () => {
-      reader.removeEventListener("load", handleReaderLoad);
-      input.removeEventListener("change", handleInputChange);
-    };
-  }, []);
+    reader.readAsDataURL(file);
+  };
 
   return (
     <>
       <label htmlFor="fileInput" className="cursor-pointer block">
         {/*Image Picker*/}
-        <div
-          ref={imgPickerRef}
-          className="bg-amber-50 w-full h-100 flex flex-col items-center justify-center cursor-pointer"
-        >
-          <FontAwesomeIcon
-            icon={faImage}
-            className="fas fa-check"
-            style={{
-              color: "Gray",
-              width: "200px",
-              height: "200px",
-              marginBottom: "10px",
-            }}
-          ></FontAwesomeIcon>
-          <FontAwesomeIcon
-            icon={faPlusCircle}
-            className="fas fa-check"
-            style={{
-              color: "Gray",
-              width: "100px",
-              height: "100px",
-            }}
-          ></FontAwesomeIcon>
+        <div className="bg-amber-50 w-full h-[400px] flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt="Selected"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <>
+              <FontAwesomeIcon
+                icon={faImage}
+                style={{
+                  color: "Gray",
+                  width: "200px",
+                  height: "200px",
+                  marginBottom: "10px",
+                }}
+              />
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                style={{
+                  color: "Gray",
+                  width: "100px",
+                  height: "100px",
+                }}
+              />
+            </>
+          )}
         </div>
         <input
           type="file"
           id="fileInput"
           accept="image/*"
           ref={inputRef}
-          alt="Selected"
           className="hidden"
+          onChange={handleFileChange} // Attach the event directly here
         />
       </label>
-      <div>
-        <ImageCropper src="/castle.jpg" within="image" onCrop={()=>{}} />
-        {/*{croppedImage && <img src={croppedImage} alt="Cropped image" />*/}
-      </div>
     </>
   );
 }
