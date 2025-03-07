@@ -1,5 +1,5 @@
 import type { Database } from "@/types/supabase";
-import { createClient } from "@/utils/supabase/server";
+import { createClientServer } from "@/utils/supabase/server";
 import { PostWithTags } from "@/types/collection";
 import { notFound } from "next/navigation";
 
@@ -10,7 +10,7 @@ interface PostPageProps {
 }
 
 async function getPost(params: { slug: string[] }) {
-  const supabase = await createClient();
+  const supabase = await createClientServer();
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.slug.join("/");
 
@@ -32,7 +32,7 @@ async function getPost(params: { slug: string[] }) {
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const supabase = await createClient();
+  const supabase = await createClientServer();
   const post = await getPost(params);
   if (!post) {
     notFound();

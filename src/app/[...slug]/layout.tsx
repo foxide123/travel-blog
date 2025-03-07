@@ -1,8 +1,8 @@
-import { createClient } from '@/utils/supabase/server';
+import { createClientServer } from '@/utils/supabase/server';
 import { notFound } from 'next/navigation';
 
 async function getPost(params: { slug: string[]}) {
-    const supabase = await createClient();
+    const supabase = await createClientServer();
 
     const response = await supabase.from("post").select("header");
 
