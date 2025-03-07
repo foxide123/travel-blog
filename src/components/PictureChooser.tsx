@@ -4,7 +4,30 @@ import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faImage } from "@fortawesome/free-solid-svg-icons";
 
-export default function PictureChooserMain() {
+interface PictureChooserMainProps {
+  screenSize: "small" | "medium" | "large";
+  onImageSelect: (screenSize: string, imageSrc: string) => void;
+}
+
+export default function PictureChooserMain({
+  screenSize,
+  onImageSelect
+}: PictureChooserMainProps) {
+  const getDimensions = () => {
+    switch (screenSize) {
+      case "large":
+        return { width: "w-full", height: "h-[300px]" };
+      case "medium":
+        return { width: "w-[768px]", height: "h-[400px]" };
+      case "small":
+        return { width: "w-[480px]", height: "h-[400px]" };
+      default:
+        return { width: "w-full", height: "h-[400px" };
+    }
+  };
+
+  const { width, height } = getDimensions();
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
@@ -16,6 +39,7 @@ export default function PictureChooserMain() {
     reader.onload = (event) => {
       if (event.target && typeof event.target.result === "string") {
         setImageSrc(event.target.result);
+        onImageSelect(screenSize, event.target.result);
       }
     };
     reader.readAsDataURL(file);
@@ -23,9 +47,9 @@ export default function PictureChooserMain() {
 
   return (
     <>
-      <label htmlFor="fileInput" className="cursor-pointer block">
+      <label htmlFor={`fileInput-${screenSize}`} className="cursor-pointer flex items-center justify-center">
         {/*Image Picker*/}
-        <div className="bg-amber-50 w-full h-[400px] flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+        <div className={`bg-amber-50 ${width} ${height} flex flex-col items-center justify-center cursor-pointer overflow-hidden`}>
           {imageSrc ? (
             <img
               src={imageSrc}
@@ -38,8 +62,8 @@ export default function PictureChooserMain() {
                 icon={faImage}
                 style={{
                   color: "Gray",
-                  width: "200px",
-                  height: "200px",
+                  width: "150px",
+                  height: "150px",
                   marginBottom: "10px",
                 }}
               />
@@ -56,7 +80,7 @@ export default function PictureChooserMain() {
         </div>
         <input
           type="file"
-          id="fileInput"
+          id={`fileInput-${screenSize}`}
           accept="image/*"
           ref={inputRef}
           className="hidden"

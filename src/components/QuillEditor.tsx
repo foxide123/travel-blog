@@ -5,23 +5,24 @@ import { useEffect, useRef } from "react";
 import { useMemo } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
-import ImageUploader from "./ImageUploader";
 
 var Size: any = Quill.import("attributors/style/size");
 Size.whitelist = ["12px", "18px", "24px", "30px", "36px"];
 Quill.register(Size, true);
 
 // Registering custom module
-Quill.register("modules/imageUploader", ImageUploader);
+//Quill.register("modules/imageUploader", ImageUploader);
 
 interface QuillEditorProps {
   initialContent?: string;
   onContentChange?: (content: string) => void;
+  setQuillInstance?: (instance: Quill | null) => void;
 }
 
 export default function QuillEditor({
   initialContent = "",
   onContentChange,
+  setQuillInstance, // Receive function to store Quill instance in parent
 }: QuillEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
 
@@ -37,10 +38,7 @@ export default function QuillEditor({
       ],
       [{ indent: "+1" }],
       [{ color: [] }, { background: [] }],
-      [{align: "right"},
-        {align: "center"},
-        {align: "justify"},
-      ],
+      [{ align: "right" }, { align: "center" }, { align: "justify" }],
       ["blockquote", "code-block"],
       ["link", "image"],
       ["clean"],
@@ -69,19 +67,17 @@ export default function QuillEditor({
           onContentChange(quillInstance!.root.innerHTML);
         }
       });
+
+      if (setQuillInstance) {
+        setQuillInstance(quillInstance); // Passing Quill instance to parent
+      }
     }
+
+    //Cleanup
     return () => {
-      quillInstance = undefined;
-    };
-  }, [initialContent, onContentChange, toolbarOptions]);
-  return (
-    <>
-      <div id="editor" ref={editorRef} />
-      <style jsx global>
-        {`
-          
-        `}
-      </style>
-    </>
-  );
+      setQuillInstance!(null);
+    }
+
+  }, [initialContent, onContentChange, toolbarOptions, setQuillInstance]);
+  return <div id="editor" ref={editorRef} />;
 }
