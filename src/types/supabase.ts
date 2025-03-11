@@ -11,25 +11,61 @@ export type Database = {
     Tables: {
       Assets: {
         Row: {
+          caption: string
           id: string
-          name: string
+          name: string | null
+          path: string
+          size: string | null
           type: string | null
           upload_date: string
-          url_path: string | null
         }
         Insert: {
+          caption: string
           id?: string
-          name: string
+          name?: string | null
+          path: string
+          size?: string | null
           type?: string | null
           upload_date?: string
-          url_path?: string | null
         }
         Update: {
+          caption?: string
           id?: string
-          name?: string
+          name?: string | null
+          path?: string
+          size?: string | null
           type?: string | null
           upload_date?: string
-          url_path?: string | null
+        }
+        Relationships: []
+      }
+      AssetSize: {
+        Row: {
+          id: number
+          size: string
+        }
+        Insert: {
+          id?: number
+          size: string
+        }
+        Update: {
+          id?: number
+          size?: string
+        }
+        Relationships: []
+      }
+      AssetType: {
+        Row: {
+          id: number
+          type: string
+        }
+        Insert: {
+          id?: number
+          type: string
+        }
+        Update: {
+          id?: number
+          type?: string
         }
         Relationships: []
       }
@@ -58,22 +94,36 @@ export type Database = {
         Row: {
           content: string | null
           creation_date: string
+          header: string | null
           id: string
-          title: string | null
+          owner_email: string | null
+          url_pathname: string
         }
         Insert: {
           content?: string | null
           creation_date?: string
+          header?: string | null
           id?: string
-          title?: string | null
+          owner_email?: string | null
+          url_pathname: string
         }
         Update: {
           content?: string | null
           creation_date?: string
+          header?: string | null
           id?: string
-          title?: string | null
+          owner_email?: string | null
+          url_pathname?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Posts_owner_email_fkey"
+            columns: ["owner_email"]
+            isOneToOne: false
+            referencedRelation: "User"
+            referencedColumns: ["email"]
+          },
+        ]
       }
       PostTags: {
         Row: {
