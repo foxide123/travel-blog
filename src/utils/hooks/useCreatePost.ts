@@ -1,12 +1,20 @@
+"use client";
+
 import {
   AssetSizeEnum,
   AssetTypeEnum,
   SubmitAssetsBody,
 } from "@/types/asset_types";
 import { useState } from "react";
-import { getAssetTypes, submitAssetsRequest, submitPostRequest, getAssetSizes } from "../api/post_requests";
+import {
+  getAssetTypes,
+  submitAssetsRequest,
+  submitPostRequest,
+  getAssetSizes,
+} from "../api/post_requests";
 import { Post } from "@/types/collection";
 import Quill from "quill";
+import { NextResponse } from "next/server";
 
 export function useCreatePost() {
   const [postContent, setPostContent] = useState("");
@@ -77,24 +85,31 @@ export function useCreatePost() {
       ],
     };
 
-    const assetTypesResponse = await getAssetTypes();
-    const assetTypesJSON = await assetTypesResponse.json();
-    const assetTypes = assetTypesJSON['data'];
+    try {
 
-    const assetSizesResponse = await getAssetSizes();
-    const assetSizesJSON = await assetSizesResponse.json();
-    const assetSizes = assetSizesJSON['data'];
+      const assetTypes = await getAssetTypes();
+      console.log("Asset types:", assetTypes);
 
-    console.log("AssetTypes:", assetTypes);
-    console.log("AssetSizes:", assetSizes);
+      const assetSizes = await getAssetSizes();
+      console.log("Asset Sizes:", assetSizes);
 
-    const postResponse = await submitPostRequest(token, submitPostData);
-    const postResult = await postResponse.json();
-    console.log("PostResult:", postResult);
-    const postId = postResult['data'][0]['id'];
-    const assetsResponse = await submitAssetsRequest(token, submitAssetsData, postId, assetTypes, assetSizes);
+      const postId = await submitPostRequest(token, submitPostData);
+      console.log("Post response: ", postId);
 
-    return { postResponse, assetsResponse };
+      const assetsResponse = await submitAssetsRequest(
+        token,
+        submitAssetsData,
+        postId,
+        assetTypes,
+        assetSizes
+      );
+
+      console.log("Assets Response:", assetsResponse);
+      return NextResponse.json({ success:true});
+
+    } catch (error) {
+      console.error("Error during submission process:", error);
+    }
   };
 
   return {
@@ -109,6 +124,6 @@ export function useCreatePost() {
     selectedImages,
     handleImageSelect,
     submitPost,
-    setQuillInstance
+    setQuillInstance,
   };
 }
