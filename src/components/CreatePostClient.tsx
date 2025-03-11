@@ -140,7 +140,8 @@ export default function CreatePostClient() {
         <p>SUBMIT</p>
       </div>
       {/*QUILL EDITOR*/}
-      <QuillEditor setQuillInstance={setQuillInstance} />
+      <QuillEditor setQuillInstance={setQuillInstance} 
+      onContentChange={setPostContent}/>
     </>
   );
 }
