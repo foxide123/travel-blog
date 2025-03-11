@@ -5,96 +5,58 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Quill from "quill";
 import dynamic from "next/dynamic";
-import { submitPostToDB } from "@/actions/post/submit-post-to-db";
-import {Post} from "@/types/collection";
+import { supabaseCreateClient } from "@/utils/supabase/client";
+import { AssetBody, AssetSizeEnum, AssetTypeEnum, SubmitAssetsBody } from "@/types/asset_types";
+import { Post } from "@/types/collection";
+import { submitPostRequest, submitAssetsRequest } from "@/utils/api/post_requests";
+import { useRouter } from "next/navigation";
+import { useCreatePost } from "@/utils/hooks/useCreatePost";
 
 const QuillEditor = dynamic(() => import("@/components/QuillEditor"), {
   ssr: false,
 });
 
+
 export default function CreatePostClient() {
-  const [quillInstance, setQuillInstance] = useState<Quill | null>(null);
-  const [imageName, setImageName] = useState<string>("");
-  const [postTitle, setPostTitle] = useState<string>("");
-  const [selectedImages, setSelectedImages] = useState<{
-    [key: string]: string | null;
-  }>({
-    large: null,
-    medium: null,
-    small: null,
-  });
 
-  const handleImageSelect = (screenSize: string, imageSrc: string) => {
-    setSelectedImages((prevImages) => {
-      const updatedImages = { ...prevImages, [screenSize]: imageSrc };
-      console.log("Updated selectedImages:", updatedImages); // Debugging line
-      return updatedImages;
-    });
-  };
-  
+  const router = useRouter();
 
-  const submitPost = async () => {
-    if (!quillInstance) {
-      console.error("Quill instance not available");
+  const {
+    postContent,
+    setPostContent,
+    imageName,
+    setImageName,
+    postHeader,
+    setPostHeader,
+    postPathname,
+    setPostPathname,
+    selectedImages,
+    handleImageSelect,
+    submitPost,
+    setQuillInstance
+  } = useCreatePost();
+
+  const handleSubmit = async () => {
+    //const supabase = supabaseCreateClient();
+    //const sessionResponse = await supabase.auth.getSession();
+    //const token = sessionResponse.data.session?.access_token;
+    const token = localStorage.getItem("supabase.auth.token")
+    if (!token) {
+      alert("You are not logged in!");
       return;
     }
 
-    const postContent = quillInstance.getSemanticHTML(0, 50); // Get HTML content
-    console.log("Post Content:", postContent);
-
-    const { large, medium, small } = selectedImages;
-
-    console.log("SELECTED IMAGES:", selectedImages);
-
-    if (!large || !medium || !small) {
-      console.log("Selected images are missing:", selectedImages);
-      alert("You have not selected all of the images (large, medium, or small)");
-      return;
-    }
-    if (!imageName) {
-      alert("You have to specify an image name");
-      return;
-    }
-    else {
-      console.log("Sending post request to API...");
-
-      const response = await fetch("/api/submitPost", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          largeImage: large,
-          mediumImage: medium,
-          smallImage: small,
-          imageName: imageName,
-          postDetails: {
-            content: postContent,
-            creation_date: new Date().toUTCString(),
-            id: "1",
-            title: postTitle
-          }
-        })
-      });
-
-      const data = await response.json();
-      console.log("Response from API:", data);
+    try {
+      const result = await submitPost(token);
+      console.log("Submission result:", result);
+      // Optionally redirect or update UI
+     // router.push("/admin/post-success");
+    } catch (error: any) {
+      console.error("Error submitting post:", error);
+      alert(error.message);
     }
   };
 
-  const handleImageNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event != null) {
-      setImageName(event.target.value);
-    }
-  };
-
-  const handlePostTitleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if(event!=null) {
-      setPostTitle(event.target.value);
-    }
-  };
 
   return (
     <>
@@ -130,7 +92,7 @@ export default function CreatePostClient() {
           name="fname"
           className="border-amber-300 border-8 w-[50%] p-2 mb-10"
           value={imageName}
-          onChange={handleImageNameChange}
+          onChange={(e) => setImageName(e.target.value)}
         />
       </form>
       <h3 className="text-center py-5 text-2xl font-bold">
@@ -142,14 +104,29 @@ export default function CreatePostClient() {
           id="fname"
           name="fname"
           className="border-amber-300 border-8 w-[50%] p-2 mb-10"
-          value={postTitle}
-          onChange={handlePostTitleChange}
+          value={postHeader}
+          onChange={(e) => setPostHeader(e.target.value)}
+        />
+      </form>
+      <h3>
+        6. Post pathname (e.g https://voyageblur.com/exploring-schwarzwald).
+        Type only pathname(exploring-schwarzwald), without
+        domain(https://voyageblur.com)
+      </h3>
+      <form className="flex flex-col items-center justify-center">
+        <input
+          type="text"
+          id="fname"
+          name="fname"
+          className="border-amber-300 border-8 w-[50%] p-2 mb-10"
+          value={postPathname}
+          onChange={(e) => setPostPathname(e.target.value)}
         />
       </form>
       {/*SUBMIT BUTTON*/}
       <div
         className="fixed top-1 right-5 space-x-4 cursor-pointer bg-blue-400 flex flex-col items-center justify-center p-2 rounded-2xl"
-        onClick={submitPost}
+        onClick={handleSubmit}
       >
         <FontAwesomeIcon
           icon={faCheck}
