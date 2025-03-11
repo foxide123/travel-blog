@@ -1,27 +1,41 @@
-import { createClient } from "@/utils/supabase/server";
-import HomePageClient, {Post} from "@/components/HomePageClient";
+"use server";
 
+import { supabaseCreateClientServer } from "@/utils/supabase/server";
+import HomePageClient from "@/components/HomePageClient";
+import { Post } from "@/types/collection";
+import { PostWithAssets } from "@/types/post_types";
 
-export default async function HomePage(){
-  const supabase = await createClient();
+export default async function HomePage() {
+  const supabase = await supabaseCreateClientServer();
 
-  let posts: Post[];
-  const { data, error } = await supabase
-    .from("Posts")
-    .select("*");
+  let posts: PostWithAssets[];
+  const { data, error } = await supabase.from("Posts").select("*");
 
   if (error) {
     console.error("Error fetching posts:", error);
     posts = [];
   } else {
     posts = data || [];
-    console.log("Fetched Posts:", posts);
+
+    for (let i=0; i<posts.length; i++) {
+      const post = posts[i];
+      const { data: assetData, error: assetError } = await supabase
+        .from("Assets")
+        .select("url_path")
+        .eq("post_id", post.id);
+      if(assetError) console.log(`No assets fetched for post ${post.id}`);
+
+
+
+      posts[i] = {
+        ...post,
+        assets: assetData ? assetData.map((asset: {url_path: string}) => asset.url_path): [],
+      };
+    }
   }
 
   return <HomePageClient posts={posts} />;
 }
-
-
 
 /*
     <div>

@@ -1,23 +1,23 @@
 "use client";
+
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-
-export interface Post {
-  id: string; // or UUID, adjust based on your type
-  creation_date: string;
-  content: string;
-  header: string;
-  url_header: string;
-}
+import { PostWithAssets } from "@/types/post_types";
 
 interface HomePageClientProps {
-  posts: Post[];
+  posts: PostWithAssets[];
 }
 
-function formatDate(dateToFormat:string) {
+function formatDate(dateToFormat: string) {
   const date = new Date(dateToFormat);
-  return date.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
+  return date.toLocaleDateString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 }
+
+
 
 export default function HomePageClient({ posts }: HomePageClientProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -145,9 +145,12 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
       {/*Blog Posts*/}
       <div className="flex flex-wrap justify-around">
         {posts.map((post) => (
-          <div className="w-110 h-100 bg-amber-50 flex flex-col mt-20" key={post.id}>
-            <Link href={`/${post.url_header}`}>
-              <img src="/bismarck.jpg" className="w-full h-70" />
+          <div
+            className="w-110 h-100 bg-amber-50 flex flex-col mt-20"
+            key={post.id}
+          >
+            <Link href={`/${post.url_pathname}`}>
+              <img src={post.assets![0]} className="w-full h-70" />
               {/*Text and Data*/}
               <div className="flex-grow flex flex-col justify-around">
                 <h3 className="text-center mt-5 text-2xl font-bold">
