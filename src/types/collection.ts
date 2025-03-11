@@ -8,7 +8,9 @@ import { Database } from "./supabase";
   category_id: number;
 };
 */}
-export type Assets = Database["public"]["Tables"]["Assets"]["Row"];
+export type AssetSize = Database["public"]["Tables"]["AssetSize"]["Row"];
+export type AssetType = Database["public"]["Tables"]["AssetType"]["Row"];
+export type Asset = Database["public"]["Tables"]["Assets"]["Row"];
 export type Blog = Database["public"]["Tables"]["Blog"]["Row"];
 export type PostTag = Database["public"]["Tables"]["PostTags"]["Row"];
 export type Post = Database["public"]["Tables"]["Posts"]["Row"];
