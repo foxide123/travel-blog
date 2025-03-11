@@ -19,14 +19,22 @@ async function getAssets(supabase: any, postId?: string | null) {
     );
   }
 
-  return NextResponse.json({ data: data });
+  return NextResponse.json({ data: JSON.parse(JSON.stringify(data)) });
 }
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const postId = searchParams.get("post_id");
+  try {
+    const { searchParams } = new URL(req.url);
+    const postId = searchParams.get("post_id");
 
-  const supabase = await supabaseCreateClientServer();
+    const supabase = await supabaseCreateClientServer();
 
-  return getAssets(supabase, postId);
+    return getAssets(supabase, postId);
+  } catch (error) {
+    console.error("API error (getAssets):", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : error },
+      { status: 500 }
+    );
+  }
 }

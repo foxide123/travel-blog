@@ -2,22 +2,29 @@ import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
+  try{
+    const supabase = await supabaseCreateClientServer();
 
-  const supabase = await supabaseCreateClientServer();
-
-  const { data, error } = await supabase
-    .from("AssetType")
-    .select();
-
-  console.log("In getAssetTypes route, data:", data);
-
-  if (error) {
-    console.error("Error retrieving asset type records: ", error);
+    const { data, error } = await supabase
+      .from("AssetType")
+      .select();
+  
+    console.log("In getAssetTypes route, data:", data);
+  
+    if (error) {
+      console.error("Error retrieving asset type records: ", error);
+      return NextResponse.json(
+        { error: error.message || error },
+        { status: 500 }
+      );
+    }
+  
+    return NextResponse.json({ data: JSON.parse(JSON.stringify(data)) });
+  }catch(error) {
+    console.error("API error (getAssetTypes):", error);
     return NextResponse.json(
-      { error: error.message || error },
+      { error: error instanceof Error ? error.message : error },
       { status: 500 }
     );
   }
-
-  return NextResponse.json({ data: data });
 }

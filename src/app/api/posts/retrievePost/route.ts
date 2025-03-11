@@ -9,13 +9,14 @@ export async function GET(req: Request) {
     const { data, error } = await supabase.from("Posts").select();
 
     if (error) {
+      console.error("Error retrieving posts:", error);
       return NextResponse.json(
         { error: error.message || error },
         { status: 500 }
       );
     }
 
-    return NextResponse.json({ data: data });
+    return NextResponse.json({ data: JSON.parse(JSON.stringify(data)) });
   } catch (error) {
     console.error("API error:", error);
     return NextResponse.json(

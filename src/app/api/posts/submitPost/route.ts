@@ -35,19 +35,20 @@ export async function POST(req: Request) {
     .select("id");
 
     if (error) {
+      console.error("Error inserting Post:", error);
       return NextResponse.json(
         { error: error.message || error },
         { status: 500 }
       );
     }
-    console.log("Post inserted successfully:", data);
+    console.log("Post inserted successfully:", JSON.parse(JSON.stringify(data)));
 
 
-    return NextResponse.json({ data: data });
+    return NextResponse.json({ data: JSON.parse(JSON.stringify(data)) });
   } catch (error) {
     console.error("API error:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error instanceof Error ? error.message : "Unknown error"},
       { status: 500 }
     );
   }

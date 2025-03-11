@@ -114,9 +114,9 @@ export async function POST(req: Request) {
     //}
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("API error:", error);
+    console.error("API error (submitAssets):", error);
     return NextResponse.json(
-      { error: error },
+      { error: error instanceof Error ? error.message : error },
       { status: 500 }
     );
   }

@@ -4,45 +4,77 @@ import { SubmitAssetsBody } from "@/types/asset_types";
 import { Post } from "@/types/collection";
 
 export async function getAssets(post_id?: string) {
-  const baseUrl = process.env.NEXT_UBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   let url = `${baseUrl}/api/assets/getAssets`;
-  
-  if(post_id) {
+
+  if (post_id) {
     url += `?post_id=${encodeURIComponent(post_id)}`;
   }
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-    }
+    },
   });
+
+  const result = await response.json();
+  console.log("Parsed result from getAssets:", result);
+
+  if (result.data && Array.isArray(result.data) && result.data.length > 0) {
+    const resultData = result.data;
+    return JSON.parse(JSON.stringify(resultData));
+  } else {
+    throw new Error("Post insertion did not return an ID");
+  }
 }
 
 export async function getAssetTypes() {
-  const baseUrl = process.env.NEXT_UBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   let url = `${baseUrl}/api/assets/getAssetTypes`;
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
+
+  const result = await response.json();
+  console.log("Parsed result from getAssetTypes:", result);
+
+  if (result.data && Array.isArray(result.data) && result.data.length > 0) {
+    const resultData = result.data;
+    return JSON.parse(JSON.stringify(resultData));
+  } else {
+    throw new Error("Failed retrieving asset types");
+  }
 }
 
 export async function getAssetSizes() {
-  const baseUrl = process.env.NEXT_UBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   let url = `${baseUrl}/api/assets/getAssetSizes`;
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
+
+  const result = await response.json();
+  console.log("Parsed result from getAssetSizes:", result);
+
+  if(result.data && Array.isArray(result.data) && result.data.length > 0) {
+    const resultData = result.data;
+    return JSON.parse(JSON.stringify(resultData));
+  }else{
+    throw new Error("Failed retrieving asset sizes");
+  }
 }
 
 export async function submitPostRequest(token: string, submitPostData: Post) {
-  return await fetch("/api/posts/submitPost", {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const url = `${baseUrl}/api/posts/submitPost`;
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,6 +82,18 @@ export async function submitPostRequest(token: string, submitPostData: Post) {
     },
     body: JSON.stringify(submitPostData),
   });
+
+  console.log("Response from submitPostRequest:", response);
+
+  const result = await response.json();
+  console.log("Parsed result from submitPostRequest:", result);
+
+  if (result.data && Array.isArray(result.data) && result.data.length > 0) {
+    const postId = result.data[0].id;
+    return postId;
+  } else {
+    throw new Error("Post insertion did not return an ID");
+  }
 }
 
 export async function submitAssetsRequest(
@@ -59,7 +103,9 @@ export async function submitAssetsRequest(
   assetTypes: any,
   assetSizes: any
 ) {
-  return await fetch("/api/assets/submitAssets", {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const url = `${baseUrl}/api/assets/submitAssets`;
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -69,7 +115,19 @@ export async function submitAssetsRequest(
       ...submitAssetsData,
       postId: postId,
       assetTypes: assetTypes,
-      assetSizes: assetSizes
+      assetSizes: assetSizes,
     }),
   });
+
+  console.log("Response from submitAssetsRequest:", response);
+
+  const result = await response.json();
+  console.log("Parsed result from submitAssetsRequest:", result);
+
+  if (result['success']) {
+    const resultData = result.data;
+    return resultData;
+  } else {
+    throw new Error("Assets submition error");
+  }
 }
