@@ -17,8 +17,6 @@ function formatDate(dateToFormat: string) {
   });
 }
 
-
-
 export default function HomePageClient({ posts }: HomePageClientProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -42,53 +40,12 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
   }, []);
 
   return (
-    <div className="bg-[url(/paper_texture.png)] w-full bg-cover p-20 box-border">
-      {/* Logo with car and camera icons*/}
-      <div className="flex justify-around">
-        <img src="/car2_improved.svg" />
-        <img src="/travel_header.svg" className="mr-20" />
-        <img src="/camera.svg" />
-      </div>
-      {/* Navigation Bar*/}
-      <nav className="flex items-center justify-center border-y border-black-300 p-4">
-        <ul className="flex">
-          <li
-            className="px-4 py-2 border-r-2 
-              border-black text-5xl text-white
-              text-outline
-              "
-          >
-            Home
-          </li>
-          <li
-            className="px-4 py-2 border-r-2 
-              border-black text-5xl text-white
-              text-outline
-              "
-          >
-            Blog
-          </li>
-          <li
-            className="px-4 py-2 border-r-2 
-              border-black text-5xl text-white
-              text-outline
-              "
-          >
-            Gallery
-          </li>
-          <li
-            className="px-4 py-2
-              text-5xl text-white
-              text-outline
-              "
-          >
-            About
-          </li>
-        </ul>
-      </nav>
+    <div className="">
       {/* Latest Story & Blog Introduction*/}
-      <div className="flex justify-around mt-15">
-        <div className="w-1/2 h-100">
+      <div className="flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:mt-15 mt-0 relative">
+        <div className="w-full h-50">
+          <img src="/stories.jpg" className="object-cover w-full h-full opacity-80"/>
+          {/*
           <video
             autoPlay
             muted
@@ -96,16 +53,31 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
             controls
             preload="none"
             style={{
-              height: "100%", // Set the desired height in px
+              height: "100%",
+              width: "100%",
               objectFit: "cover", // Crop edges while filling the area
             }}
           >
             <source src="/video3.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+          */}
         </div>
-        <div className="w-1/3">
-          <h2 className="text-5xl text-center tracking-wider">
+        <div className="w-full">
+          <h2
+            className="
+              sm:text-5xl
+              text-7xl
+              text-center 
+              tracking-wider
+              sm:relative
+              absolute 
+              top-5
+              left-1/2
+              transform
+              -translate-x-1/2
+              text-amber-50"
+          >
             Travel Stories
           </h2>
           <p className="text-2xl mt-5">
@@ -116,10 +88,10 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
         </div>
       </div>
       {/*Countries Filter*/}
-      <div className="flex justify-center items-center mt-20">
+      <div className="flex sm:flex-row flex-col justify-center items-center mt-20">
         <img src="/europe.png" />
         {/*Country Filter*/}
-        <div className="flex justify-center text-center ml-20 ">
+        <div className="flex justify-center text-center sm:ml-20 sm:mt-0 mt-10 ">
           <p className="text-3xl mr-5">Country: </p>
           <div className="relative inline-block" ref={dropdownRef}>
             <button
@@ -143,20 +115,25 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
         </div>
       </div>
       {/*Blog Posts*/}
-      <div className="flex flex-wrap justify-around">
+      <div className="flex flex-wrap justify-around p-5 mt-10">
         {posts.map((post) => (
           <div
-            className="w-110 h-100 bg-amber-50 flex flex-col mt-20"
+            className="w-110 h-100 bg-amber-50 flex flex-col mt-10 rounded-2xl overflow-hidden"
             key={post.id}
           >
             <Link href={`/${post.url_pathname}`}>
-              <img src={post.assets![0]} className="w-full h-70" />
+              <div className="h-3/4">
+                <img
+                  src={post.assets![0]}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               {/*Text and Data*/}
               <div className="flex-grow flex flex-col justify-around">
-                <h3 className="text-center mt-5 text-2xl font-bold">
+                <h3 className="text-center mt-10 text-2xl font-bold">
                   {post.header}
                 </h3>
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center mt-5">
                   <img src="/calendar.svg" className="w-6 mr-2" />
                   <p>{formatDate(post.creation_date)}</p>
                 </div>

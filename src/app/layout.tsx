@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script'
 import "./globals.css";
+import Image from "next/image";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import HeaderWithNav from "@/components/HeaderWithNav";
 config.autoAddCss = false;
 
 const geistSans = Geist({
@@ -29,12 +31,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen`}
       >
+        <HeaderWithNav/>
         {children}
       </body>
-      <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
     </html>
   );
 }
