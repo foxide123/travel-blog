@@ -44,8 +44,14 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
     <div className="">
       {/* Latest Story & Blog Introduction*/}
       <div className="flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:mt-15 mt-0 relative">
-        <div className="w-full h-50">
-          <Image src="/stories.jpg" alt="stories-background" className="object-cover w-full h-full opacity-80"/>
+        <div className="w-full aspect-[16/9] relative">
+          <Image
+            src="/stories.jpg"
+            alt="stories-background"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-80"
+          />
           {/*
           <video
             autoPlay
@@ -85,7 +91,14 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
       </div>
       {/*Countries Filter*/}
       <div className="flex sm:flex-row flex-col justify-center items-center mt-20">
-        <Image src="/europe.png" alt="europe-flag" />
+        <div className="w-2/3 aspect-[16/9] relative">
+          <Image
+            src="/europe.png"
+            alt="europe-flag"
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
         {/*Country Filter*/}
         <div className="flex justify-center text-center sm:ml-20 sm:mt-0 mt-10 ">
           <p className="text-3xl mr-5">Country: </p>
@@ -118,11 +131,13 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
             key={post.id}
           >
             <Link href={`/${post.url_pathname}`}>
-              <div className="h-3/4">
+              <div className="relative w-full aspect-[16/9]">
                 <Image
                   src={post.assets![0]}
                   alt="post-image"
-                  className="w-full h-full object-cover"
+                  layout="fill"
+                  objectFit="cover"
+                  className="object-cover"
                 />
               </div>
               {/*Text and Data*/}
@@ -131,7 +146,13 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
                   {post.header}
                 </h3>
                 <div className="flex justify-center items-center mt-5">
-                  <Image src="/calendar.svg" alt="calendar-icon" className="w-6 mr-2" />
+                  <Image
+                    src="/calendar.svg"
+                    alt="calendar-icon"
+                    width={0}
+                    height={0}
+                    className="w-6 mr-2"
+                  />
                   <p>{formatDate(post.creation_date)}</p>
                 </div>
               </div>
