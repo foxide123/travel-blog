@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faImage } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 interface PictureChooserMainProps {
   screenSize: "small" | "medium" | "large";
@@ -51,7 +52,7 @@ export default function PictureChooserMain({
         {/*Image Picker*/}
         <div className={`bg-amber-50 ${width} ${height} flex flex-col items-center justify-center cursor-pointer overflow-hidden`}>
           {imageSrc ? (
-            <img
+            <Image
               src={imageSrc}
               alt="Selected"
               className="w-full h-full object-cover"

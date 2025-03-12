@@ -5,6 +5,7 @@ import {
   YouTubeEmbed,
   TikTokEmbed,
 } from "react-social-media-embed";
+import Image from "next/image";
 
 interface PostDetailsProps {
   largeAssetPath: string;
@@ -34,9 +35,9 @@ export default function PostDetailsClient({
         )}
         {/* For Small Screens */}
         {smallAssetPath !== "" ? (
-          <img src={smallAssetPath} alt="" />
+          <Image src={smallAssetPath} alt="post-image" />
         ) : (
-          <img src={mediumAssetPath || ""} />
+          <Image src={mediumAssetPath || ""} alt="post-image" />
         )}
       </picture>
       {/* Container for Content (Header, text and embeds) */}
