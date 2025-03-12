@@ -6,6 +6,12 @@ import {
   TikTokEmbed,
 } from "react-social-media-embed";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const EmbedSection = dynamic(()=>import("./MediaEmbedSection"), {
+  ssr:false,
+  loading: () => <p>Loading media...</p>,
+})
 
 interface PostDetailsProps {
   largeAssetPath: string;
@@ -24,7 +30,7 @@ export default function PostDetailsClient({
 }: PostDetailsProps) {
   return (
     <>
-      <picture className="flex items-center justify-center">
+      <picture className="flex items-center justify-center w-full aspect-[16/9]">
         {/* For Large Screens */}
         {largeAssetPath !== "" && (
           <source media="(min-width: 1024px)" srcSet={largeAssetPath} />
@@ -35,9 +41,14 @@ export default function PostDetailsClient({
         )}
         {/* For Small Screens */}
         {smallAssetPath !== "" ? (
-          <Image src={smallAssetPath} alt="post-image" />
+          <img src={smallAssetPath} alt="post-image" />
         ) : (
-          <Image src={mediumAssetPath || ""} alt="post-image" />
+          <Image
+            src={mediumAssetPath || ""}
+            alt="post-image"
+            objectFit="cover"
+            layout="fill"
+          />
         )}
       </picture>
       {/* Container for Content (Header, text and embeds) */}
@@ -46,26 +57,20 @@ export default function PostDetailsClient({
         <div className="sm:block sm:w-[328px] hidden"></div>
         {/* Main Content Area */}
         <div className="w-screen">
-          <h1 className="sm:text-7xl text-center text-5xl p-10 pb-0">{header}</h1>
+          <h1 className="sm:text-7xl text-center text-5xl p-10 pb-0">
+            {header}
+          </h1>
           <div
             dangerouslySetInnerHTML={{ __html: content }}
             className="flex flex-col justify-center whitespace-normal break-words p-10 content"
           />
         </div>
         {/* Embed Section (YT, IG etc.) */}
-        <div className="flex flex-col mt-10 justify-center items-center w-screen">
-          <InstagramEmbed
-            url="https://www.instagram.com/p/DGHFZn-oY-l/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA=="
-            width={328}
-            captioned
-          />
-          <YouTubeEmbed
-            url="https://www.youtube.com/shorts/Kc3KwIlwZiM"
-            width={328}
-          />
-        </div>
+        <EmbedSection
+          youtubeUrl="https://www.youtube.com/shorts/Kc3KwIlwZiM"
+          instagramUrl="https://www.instagram.com/p/DGHFZn-oY-l/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA=="
+        />
       </div>
-
     </>
   );
 }
