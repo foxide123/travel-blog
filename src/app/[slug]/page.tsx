@@ -1,4 +1,5 @@
 import PostDetailsClient from "@/components/PostDetailsClient";
+export const runtime = "edge";
 
 type paramsType = Promise<{ slug: string }>;
 
