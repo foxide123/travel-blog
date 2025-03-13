@@ -1,7 +1,7 @@
 import PostDetailsClient from "@/components/PostDetailsClient";
 
-export default async function FullPostPage({ slug }: { slug: string }) {
-  console.log(slug);
+export default async function FullPostPage({ params }: { params: { slug: string } }) {
+  console.log(params);
   return (
         <PostDetailsClient
            largeAssetPath=""
@@ -12,6 +12,11 @@ export default async function FullPostPage({ slug }: { slug: string }) {
          />
   );
 }
+
+
+
+
+
 // //"use server";
 // export const runtime = "edge";
 
