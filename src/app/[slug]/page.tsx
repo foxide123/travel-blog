@@ -1,6 +1,8 @@
 import PostDetailsClient from "@/components/PostDetailsClient";
 
-export default async function FullPostPage({ params }: { params: { slug: string } }) {
+type paramsType = Promise<{ slug: string }>;
+
+export default async function FullPostPage({ params }: { params: paramsType }) {
   console.log(params);
   return (
         <PostDetailsClient
