@@ -1,5 +1,5 @@
 //"use server";
-export const runtime="edge";
+export const runtime = "edge";
 
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { Asset, AssetSize, AssetType, Post } from "@/types/collection";
@@ -18,11 +18,7 @@ import { AssetWithTypeAndSizeNames } from "@/types/asset_types";
 
 type paramsType = Promise<{ slug: string }>;
 
-export default async function FullPostPage({
-  params,
-}: {
-  params: paramsType;
-}) {
+export default async function FullPostPage({ params }: { params: paramsType }) {
   const supabase = await supabaseCreateClientServer();
 
   const { slug } = await params;
@@ -52,26 +48,28 @@ export default async function FullPostPage({
   console.log("Asset types:", assetTypes);
   console.log("Asset sizes:", assetSizes);
   console.log("Assets:", assets);
-  console.log(creation_date, owner_email, url_pathname, )
+  console.log(creation_date, owner_email, url_pathname);
 
   {
     /* Return assets with Type and Size Names */
   }
-  const assetsWithDetails: AssetWithTypeAndSizeNames[] = assets.map((asset: Asset) => {
-    const typeDetail = assetTypes.find((type: AssetType) => {
-      return type.id === asset.type;
-    });
+  const assetsWithDetails: AssetWithTypeAndSizeNames[] = assets.map(
+    (asset: Asset) => {
+      const typeDetail = assetTypes.find((type: AssetType) => {
+        return type.id === asset.type;
+      });
 
-    const sizeDetail = assetSizes.find(
-      (size: AssetSize) => size.id === asset.size
-    );
+      const sizeDetail = assetSizes.find(
+        (size: AssetSize) => size.id === asset.size
+      );
 
-    return {
-      ...asset,
-      typeName: typeDetail ? typeDetail["type"] : "Unknown Type",
-      sizeName: sizeDetail ? sizeDetail["size"] : "Unknown Size",
-    };
-  });
+      return {
+        ...asset,
+        typeName: typeDetail ? typeDetail["type"] : "Unknown Type",
+        sizeName: sizeDetail ? sizeDetail["size"] : "Unknown Size",
+      };
+    }
+  );
 
   console.log("Assets with details", assetsWithDetails);
 
@@ -87,6 +85,13 @@ export default async function FullPostPage({
     (asset: AssetWithTypeAndSizeNames) => asset.sizeName === "small"
   );
 
-
-  return <PostDetailsClient largeAssetPath={largeAsset?.url_path} mediumAssetPath={mediumAsset?.url_path} smallAssetPath={smallAsset?.url_path} header={header!} content={content || ""}/>
+  return (
+    <PostDetailsClient
+      largeAssetPath={largeAsset?.url_path}
+      mediumAssetPath={mediumAsset?.url_path}
+      smallAssetPath={smallAsset?.url_path}
+      header={header!}
+      content={content || ""}
+    />
+  );
 }

@@ -23,7 +23,9 @@ export async function GET() {
   } catch (error) {
     console.error("API error:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Internal Server Error While Retrieving Post",
+        details: error instanceof Error ? error.message : String(Error)
+       },
       { status: 500 }
     );
   }
