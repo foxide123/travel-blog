@@ -1,6 +1,7 @@
 import PostDetailsClient from "@/components/PostDetailsClient";
 
 export default async function FullPostPage({ slug }: { slug: string }) {
+  console.log(slug);
   return (
         <PostDetailsClient
            largeAssetPath=""
