@@ -14,13 +14,16 @@ import {
 } from "../api/post_requests";
 import { Post } from "@/types/collection";
 import { NextResponse } from "next/server";
+import Quill from "quill";
 
 export function useCreatePost() {
   const [postContent, setPostContent] = useState("");
   const [imageName, setImageName] = useState<string>("");
   const [postHeader, setPostHeader] = useState<string>("");
   const [postPathname, setPostPathname] = useState<string>("");
-//  const [quillInstance, setQuillInstance] = useState<Quill | null>(null);
+  const [quillInstance, setQuillInstance] = useState<Quill | null>(null);
+
+  console.log(quillInstance);
 
   const [selectedImages, setSelectedImages] = useState<{
     [key: string]: string | null;
@@ -123,6 +126,6 @@ export function useCreatePost() {
     selectedImages,
     handleImageSelect,
     submitPost,
-   // setQuillInstance,
+    setQuillInstance,
   };
 }
