@@ -9,11 +9,15 @@ const EmbedSection = dynamic(()=>import("./MediaEmbedSection"), {
 })
 
 interface PostDetailsProps {
-  largeAssetPath: string;
-  mediumAssetPath: string;
-  smallAssetPath: string;
+  largeAssetPath: string | null | undefined;
+  mediumAssetPath: string | null | undefined;
+  smallAssetPath: string | null | undefined;
   header: string;
   content: string;
+}
+
+function isValidImage(url: string | null | undefined): url is string {
+  return typeof url==="string" && url.trim()!=="";
 }
 
 export default function PostDetailsClient({
@@ -27,15 +31,15 @@ export default function PostDetailsClient({
     <div>
       <picture className="md:h-150 flex items-center justify-center w-full aspect-[16/9] relative">
         {/* For Large Screens */}
-        {largeAssetPath !== "" && (
+        {isValidImage(largeAssetPath) && (
           <source media="(min-width: 1024px)" srcSet={largeAssetPath} />
         )}
         {/* For Medium Screens */}
-        {mediumAssetPath !== "" && (
+        {isValidImage(mediumAssetPath) && (
           <source media="(min-width: 768px)" srcSet={mediumAssetPath} />
         )}
         {/* For Small Screens */}
-        {smallAssetPath !== "" ? (
+        {isValidImage(smallAssetPath) ? (
           <Image src={smallAssetPath}
            alt="post-image"
            objectFit="cover"
