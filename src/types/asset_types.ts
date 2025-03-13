@@ -1,3 +1,5 @@
+import { Asset } from "./collection";
+
 export enum AssetTypeEnum {
     "image" = "image",
 }
@@ -19,4 +21,10 @@ export type AssetBody = {
 
 export type SubmitAssetsBody = {
     assets: AssetBody[];
+}
+
+
+export type AssetWithTypeAndSizeNames = Asset & {
+    typeName: string;
+    sizeName: string;
 }

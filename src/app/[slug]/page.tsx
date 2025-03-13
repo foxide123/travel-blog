@@ -10,7 +10,7 @@ import {
   getAssetTypes,
 } from "@/utils/api/post_requests";
 import PostDetailsClient from "@/components/PostDetailsClient";
-import { AssetBody } from "@/types/asset_types";
+import { AssetBody, AssetWithTypeAndSizeNames } from "@/types/asset_types";
 {
   /* Page with full post.
     The example url: https://voyageblur.com/exploring-schwarzwald */
@@ -23,7 +23,7 @@ export default async function FullPostPage({
 }) {
   const supabase = await supabaseCreateClientServer();
 
-  const pageParams = (await params).slug;
+  const pageParams = params.slug;
   console.log("Page params:", pageParams);
 
   const { data, error } = await supabase
@@ -55,7 +55,7 @@ export default async function FullPostPage({
   {
     /* Return assets with Type and Size Names */
   }
-  const assetsWithDetails = assets.map((asset: Asset) => {
+  const assetsWithDetails: AssetWithTypeAndSizeNames[] = assets.map((asset: Asset) => {
     const typeDetail = assetTypes.find((type: AssetType) => {
       return type.id === asset.type;
     });
@@ -74,19 +74,19 @@ export default async function FullPostPage({
   console.log("Assets with details", assetsWithDetails);
 
   const largeAsset = assetsWithDetails.find(
-    (asset: AssetBody) => asset.size.toLowerCase() === "large"
+    (asset: AssetWithTypeAndSizeNames) => asset.sizeName === "large"
   );
 
   const mediumAsset = assetsWithDetails.find(
-    (asset: AssetBody) => asset.size.toLowerCase() === "medium"
+    (asset: AssetWithTypeAndSizeNames) => asset.sizeName === "medium"
   );
 
   const smallAsset = assetsWithDetails.find(
-    (asset: AssetBody) => asset.size.toLowerCase() === "small"
+    (asset: AssetWithTypeAndSizeNames) => asset.sizeName === "small"
   );
 
   {/* IMPORTANT */}
   const sanitizedContent = DOMPurify.sanitize(content ?? "");
 
-  return <PostDetailsClient largeAssetPath={largeAsset['url_path']} mediumAssetPath={mediumAsset['url_path']} smallAssetPath={smallAsset['url_path']} header={header!} content={sanitizedContent}/>
+  return <PostDetailsClient largeAssetPath={largeAsset?.url_path} mediumAssetPath={mediumAsset?.url_path} smallAssetPath={smallAsset?.url_path} header={header!} content={sanitizedContent}/>
 }
