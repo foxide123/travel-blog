@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import DOMPurify from "isomorphic-dompurify";
+import { useEffect, useState } from "react";
 
 const EmbedSection = dynamic(()=>import("./MediaEmbedSection"), {
   ssr:false,
@@ -30,7 +30,16 @@ export default function PostDetailsClient({
 }: PostDetailsProps) {
 
    {/* IMPORTANT */}
-  const sanitizedContent = DOMPurify.sanitize(content ?? "");
+  const [sanitizer, setSanitizer] = useState<{sanitize: (input: string) => string} | null>(null);
+
+  useEffect(() => {
+    // Dynamically import DOMPurify so that it's only loaded in the browser.
+    import("isomorphic-dompurify").then((mod) => {
+      setSanitizer(mod.default);
+    });
+  }, []);
+
+  const sanitizedContent = sanitizer ? sanitizer.sanitize(content ?? "") : content ?? "";
 
   return (
     <div>

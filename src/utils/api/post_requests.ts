@@ -4,7 +4,9 @@ import { SubmitAssetsBody } from "@/types/asset_types";
 import { AssetSize, AssetType, Post } from "@/types/collection";
 
 export async function getAssets(post_id?: string) {
-  let url = `/api/assets/getAssets`;
+  const baseUrl = "https://voyageblur.com";
+  //const baseUrl = "http://localhost:3000";
+  let url = `${baseUrl}/api/assets/getAssets`;
 
   if (post_id) {
     url += `?post_id=${encodeURIComponent(post_id)}`;
@@ -36,7 +38,9 @@ export async function getAssets(post_id?: string) {
 }
 
 export async function getAssetTypes() {
-  const url = `/api/assets/getAssetTypes`;
+  const baseUrl = "https://voyageblur.com";
+  //const baseUrl = "http://localhost:3000";
+  const url = `${baseUrl}/api/assets/getAssetTypes`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -65,7 +69,9 @@ export async function getAssetTypes() {
 }
 
 export async function getAssetSizes() {
-  const url = `/api/assets/getAssetSizes`;
+  const baseUrl = "https://voyageblur.com";
+  //const baseUrl = "http://localhost:3000";
+  const url = `${baseUrl}/api/assets/getAssetSizes`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -91,7 +97,9 @@ export async function getAssetSizes() {
 }
 
 export async function submitPostRequest(token: string, submitPostData: Post) {
-  const url = `/api/posts/submitPost`;
+  const baseUrl = "https://voyageblur.com";
+  //const baseUrl = "http://localhost:3000";
+  const url = `${baseUrl}/api/posts/submitPost`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -128,7 +136,9 @@ export async function submitAssetsRequest(
   assetTypes: AssetType[],
   assetSizes: AssetSize[]
 ) {
-  const url = `/api/assets/submitAssets`;
+  const baseUrl = "https://voyageblur.com";
+  //const baseUrl = "http://localhost:3000";
+  const url = `${baseUrl}/api/assets/submitAssets`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -142,14 +152,6 @@ export async function submitAssetsRequest(
       assetSizes: assetSizes,
     }),
   });
-
-
-  if(!response.ok) {
-    const errorText = await response.text();
-    console.error("Error response:", errorText);
-    throw new Error(`Request failed with status ${response.status}`);
-  }
-
 
   console.log("Response from submitAssetsRequest:", response);
 
