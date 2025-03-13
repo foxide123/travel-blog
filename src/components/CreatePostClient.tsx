@@ -2,14 +2,8 @@
 import PictureChooserMain from "@/components/PictureChooser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import Quill from "quill";
+
 import dynamic from "next/dynamic";
-import { supabaseCreateClient } from "@/utils/supabase/client";
-import { AssetBody, AssetSizeEnum, AssetTypeEnum, SubmitAssetsBody } from "@/types/asset_types";
-import { Post } from "@/types/collection";
-import { submitPostRequest, submitAssetsRequest } from "@/utils/api/post_requests";
-import { useRouter } from "next/navigation";
 import { useCreatePost } from "@/utils/hooks/useCreatePost";
 
 const QuillEditor = dynamic(() => import("@/components/QuillEditor"), {
@@ -19,10 +13,8 @@ const QuillEditor = dynamic(() => import("@/components/QuillEditor"), {
 
 export default function CreatePostClient() {
 
-  const router = useRouter();
-
   const {
-    postContent,
+   // postContent,
     setPostContent,
     imageName,
     setImageName,
@@ -30,7 +22,7 @@ export default function CreatePostClient() {
     setPostHeader,
     postPathname,
     setPostPathname,
-    selectedImages,
+   // selectedImages,
     handleImageSelect,
     submitPost,
     setQuillInstance
@@ -51,9 +43,9 @@ export default function CreatePostClient() {
       console.log("Submission result:", result);
       // Optionally redirect or update UI
      // router.push("/admin/post-success");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error submitting post:", error);
-      alert(error.message);
+      alert(error);
     }
   };
 

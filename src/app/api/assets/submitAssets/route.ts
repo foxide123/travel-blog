@@ -1,12 +1,13 @@
 "use server";
 
 import { NextResponse } from "next/server";
-import { Post } from "@/types/collection";
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { imageToBlob } from "@/utils/posts/imageToBlob";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { Asset, AssetSize, AssetType } from "@/types/collection";
+import { AssetBody } from "@/types/asset_types";
 
-function assetTypeMapping(selectedType:any, assetTypes:any){
+function assetTypeMapping(selectedType:string, assetTypes:Array<AssetType>){
   
   let assetTypeId = 0;
   
@@ -18,15 +19,15 @@ function assetTypeMapping(selectedType:any, assetTypes:any){
   for (let i=0; i<assetTypes.length; i++){
     console.log("Selected Type: ", selectedType);
     console.log("AssetTypes: ", assetTypes);
-    if (selectedType.toLowerCase() === assetTypes[i]['type']){
-      assetTypeId = assetTypes[i]['id'];
+    if (selectedType.toLowerCase() === assetTypes[i].type){
+      assetTypeId = assetTypes[i].id;
     }
   }
 
   return assetTypeId;
 }
 
-function assetSizeMapping(selectedSize:string, assetSizes:any){
+function assetSizeMapping(selectedSize:string, assetSizes:Array<AssetSize>){
   
   let assetSizeId = 0;
 
@@ -37,16 +38,16 @@ function assetSizeMapping(selectedSize:string, assetSizes:any){
   
   for (let i=0; i<assetSizes.length; i++){
     console.log("Selected Size: ", selectedSize);
-    console.log("AssetSize: ", assetSizes[i]['size'].toLowerCase());
-    if (selectedSize.toLowerCase() === assetSizes[i]['size'].toLowerCase()){
-      assetSizeId = assetSizes[i]['id'];
+    console.log("AssetSize: ", assetSizes[i].size.toLowerCase());
+    if (selectedSize.toLowerCase() === assetSizes[i].size.toLowerCase()){
+      assetSizeId = assetSizes[i].id;
     }
   }
 
   return assetSizeId;
 }
 
-async function submitImage(asset: any, supabase: SupabaseClient) {
+async function submitImage(asset: AssetBody, supabase: SupabaseClient) {
   const blob = await imageToBlob(asset.content);
 
   const { data, error } = await supabase.storage
@@ -81,7 +82,9 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    for (let asset of body.assets) {
+    const assets:Array<AssetBody> = body.assets;
+
+    for (const asset of assets) {
      // if (asset.type === 1) {
         const { data, error } = await submitImage(asset, supabase);
         if (error) {
@@ -97,7 +100,7 @@ export async function POST(req: Request) {
         const { error: insertError } = await supabase.from("Assets").insert({
           caption: asset.caption,
           upload_date: new Date().toUTCString(),
-          type: assetTypeMapping(asset.type, body.assetTypes),
+          type: asset.type != null ? assetTypeMapping(asset.type, body.assetTypes) : null,
           url_path: data,
           size: assetSizeMapping(asset.size, body.assetSizes),
           name: asset.image_name,

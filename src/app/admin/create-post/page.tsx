@@ -1,6 +1,5 @@
 "use client"
 
-import PictureChooserMain from "@/components/PictureChooser";
 import CreatePostClient from "@/components/CreatePostClient";
 
 

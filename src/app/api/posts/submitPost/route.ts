@@ -1,10 +1,7 @@
 "use server";
 
 import { NextResponse } from "next/server";
-import { Post } from "@/types/collection";
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
-import { imageToBlob } from "@/utils/posts/imageToBlob";
-
 
 export async function POST(req: Request) {
   try {

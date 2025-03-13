@@ -1,8 +1,10 @@
-import { getAssetSizes, getAssetTypes } from "@/utils/api/post_requests";
+"use server"
+
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
-async function getAssets(supabase: any, postId?: string | null) {
+async function getAssets(supabase: SupabaseClient, postId?: string | null) {
   let query = supabase.from("Assets").select("*");
 
   if (postId !== null && postId !== undefined) {

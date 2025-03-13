@@ -16,7 +16,6 @@ export type PostTag = Database["public"]["Tables"]["PostTags"]["Row"];
 export type Post = Database["public"]["Tables"]["Posts"]["Row"];
 export type Tag = Database["public"]["Tables"]["Tag"]["Row"];
 export type User = Database["public"]["Tables"]["User"]["Row"];
-
 {/*We inherit all properties from Post except "categories" (which we omitted).
 Then, we add back "categories" but as a full Category object.
 

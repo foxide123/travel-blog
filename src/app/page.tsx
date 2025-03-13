@@ -2,7 +2,6 @@
 
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import HomePageClient from "@/components/HomePageClient";
-import { Post } from "@/types/collection";
 import { PostWithAssets } from "@/types/post_types";
 
 export default async function HomePage() {

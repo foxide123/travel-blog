@@ -1,10 +1,5 @@
 "use client";
 
-import {
-  InstagramEmbed,
-  YouTubeEmbed,
-  TikTokEmbed,
-} from "react-social-media-embed";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
@@ -29,8 +24,8 @@ export default function PostDetailsClient({
   content,
 }: PostDetailsProps) {
   return (
-    <>
-      <picture className="flex items-center justify-center w-full aspect-[16/9]">
+    <div>
+      <picture className="md:h-150 flex items-center justify-center w-full aspect-[16/9] relative">
         {/* For Large Screens */}
         {largeAssetPath !== "" && (
           <source media="(min-width: 1024px)" srcSet={largeAssetPath} />
@@ -41,7 +36,10 @@ export default function PostDetailsClient({
         )}
         {/* For Small Screens */}
         {smallAssetPath !== "" ? (
-          <img src={smallAssetPath} alt="post-image" />
+          <Image src={smallAssetPath}
+           alt="post-image"
+           objectFit="cover"
+           layout="fill" />
         ) : (
           <Image
             src={mediumAssetPath || ""}
@@ -71,6 +69,6 @@ export default function PostDetailsClient({
           instagramUrl="https://www.instagram.com/p/DGHFZn-oY-l/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA=="
         />
       </div>
-    </>
+    </div>
   );
 }

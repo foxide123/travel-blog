@@ -44,7 +44,7 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
     <div className="lg:px-50">
       {/* Latest Story & Blog Introduction*/}
       <div className="flex lg:flex-row lg:justify-around lg:mt-15 flex-col justify-center items-center mt-0 relative">
-        <div className="lg:w-1/2 lg:mr-10 lg:aspect-[16/9] w-full md:h-50 rounded-2xl overflow-hidden relative">
+        <div className="lg:w-1/2 lg:mr-10 md:h-50 md:aspect-none aspect-[16/9] w-full md:rounded-2xl overflow-hidden relative">
           <Image
             src="/stories.jpg"
             alt="stories-background"

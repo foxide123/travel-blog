@@ -6,9 +6,9 @@ import { useMemo } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 
-var Size: any = Quill.import("attributors/style/size");
+const Size = Quill.import("attributors/style/size") as { whitelist: string[]};
 Size.whitelist = ["12px", "18px", "24px", "30px", "36px"];
-Quill.register(Size, true);
+Quill.register("attributors/style/size", Size, true);
 
 // Registering custom module
 //Quill.register("modules/imageUploader", ImageUploader);

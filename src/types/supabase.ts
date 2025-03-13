@@ -11,33 +11,58 @@ export type Database = {
     Tables: {
       Assets: {
         Row: {
-          caption: string
+          caption: string | null
           id: string
           name: string | null
-          path: string
-          size: string | null
-          type: string | null
-          upload_date: string
+          post_id: string | null
+          size: number | null
+          type: number | null
+          upload_date: string | null
+          url_path: string | null
         }
         Insert: {
-          caption: string
+          caption?: string | null
           id?: string
           name?: string | null
-          path: string
-          size?: string | null
-          type?: string | null
-          upload_date?: string
+          post_id?: string | null
+          size?: number | null
+          type?: number | null
+          upload_date?: string | null
+          url_path?: string | null
         }
         Update: {
-          caption?: string
+          caption?: string | null
           id?: string
           name?: string | null
-          path?: string
-          size?: string | null
-          type?: string | null
-          upload_date?: string
+          post_id?: string | null
+          size?: number | null
+          type?: number | null
+          upload_date?: string | null
+          url_path?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Assets_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "Posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Assets_size_fkey"
+            columns: ["size"]
+            isOneToOne: false
+            referencedRelation: "AssetSize"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Assets_type_fkey"
+            columns: ["type"]
+            isOneToOne: false
+            referencedRelation: "AssetType"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       AssetSize: {
         Row: {

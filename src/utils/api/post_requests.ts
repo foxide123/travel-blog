@@ -1,7 +1,7 @@
 "use server";
 
 import { SubmitAssetsBody } from "@/types/asset_types";
-import { Post } from "@/types/collection";
+import { AssetSize, AssetType, Post } from "@/types/collection";
 
 export async function getAssets(post_id?: string) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -30,7 +30,7 @@ export async function getAssets(post_id?: string) {
 
 export async function getAssetTypes() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  let url = `${baseUrl}/api/assets/getAssetTypes`;
+  const url = `${baseUrl}/api/assets/getAssetTypes`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -52,7 +52,7 @@ export async function getAssetTypes() {
 
 export async function getAssetSizes() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  let url = `${baseUrl}/api/assets/getAssetSizes`;
+  const url = `${baseUrl}/api/assets/getAssetSizes`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -100,8 +100,8 @@ export async function submitAssetsRequest(
   token: string,
   submitAssetsData: SubmitAssetsBody,
   postId: string,
-  assetTypes: any,
-  assetSizes: any
+  assetTypes: AssetType[],
+  assetSizes: AssetSize[]
 ) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const url = `${baseUrl}/api/assets/submitAssets`;
