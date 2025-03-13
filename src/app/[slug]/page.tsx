@@ -3,7 +3,6 @@ export const runtime="edge";
 
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { Asset, AssetSize, AssetType, Post } from "@/types/collection";
-import DOMPurify from "isomorphic-dompurify";
 
 import {
   getAssets,
@@ -88,8 +87,6 @@ export default async function FullPostPage({
     (asset: AssetWithTypeAndSizeNames) => asset.sizeName === "small"
   );
 
-  {/* IMPORTANT */}
-  const sanitizedContent = DOMPurify.sanitize(content ?? "");
 
-  return <PostDetailsClient largeAssetPath={largeAsset?.url_path} mediumAssetPath={mediumAsset?.url_path} smallAssetPath={smallAsset?.url_path} header={header!} content={sanitizedContent}/>
+  return <PostDetailsClient largeAssetPath={largeAsset?.url_path} mediumAssetPath={mediumAsset?.url_path} smallAssetPath={smallAsset?.url_path} header={header!} content={content || ""}/>
 }

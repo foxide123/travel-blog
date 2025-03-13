@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import DOMPurify from "isomorphic-dompurify";
 
 const EmbedSection = dynamic(()=>import("./MediaEmbedSection"), {
   ssr:false,
@@ -27,6 +28,10 @@ export default function PostDetailsClient({
   header,
   content,
 }: PostDetailsProps) {
+
+   {/* IMPORTANT */}
+  const sanitizedContent = DOMPurify.sanitize(content ?? "");
+
   return (
     <div>
       <picture className="md:h-150 flex items-center justify-center w-full aspect-[16/9] relative">
@@ -63,7 +68,7 @@ export default function PostDetailsClient({
             {header}
           </h1>
           <div
-            dangerouslySetInnerHTML={{ __html: content }}
+            dangerouslySetInnerHTML={{ __html: sanitizedContent }}
             className="flex flex-col justify-center whitespace-normal break-words p-10 content"
           />
         </div>
