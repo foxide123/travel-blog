@@ -4,8 +4,7 @@ import { SubmitAssetsBody } from "@/types/asset_types";
 import { AssetSize, AssetType, Post } from "@/types/collection";
 
 export async function getAssets(post_id?: string) {
-  const baseUrl = "https://voyageblur.com";
-  let url = `${baseUrl}/api/assets/getAssets`;
+  let url = `/api/assets/getAssets`;
 
   if (post_id) {
     url += `?post_id=${encodeURIComponent(post_id)}`;
@@ -16,6 +15,14 @@ export async function getAssets(post_id?: string) {
       "Content-Type": "application/json",
     },
   });
+
+
+  if(!response.ok) {
+    const errorText = await response.text();
+    console.error("Error response:", errorText);
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+
 
   const result = await response.json();
   console.log("Parsed result from getAssets:", result);
@@ -29,8 +36,7 @@ export async function getAssets(post_id?: string) {
 }
 
 export async function getAssetTypes() {
-  const baseUrl = "https://voyageblur.com";
-  const url = `${baseUrl}/api/assets/getAssetTypes`;
+  const url = `/api/assets/getAssetTypes`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -38,6 +44,14 @@ export async function getAssetTypes() {
       "Content-Type": "application/json",
     },
   });
+
+
+  if(!response.ok) {
+    const errorText = await response.text();
+    console.error("Error response:", errorText);
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+
 
   const result = await response.json();
   console.log("Parsed result from getAssetTypes:", result);
@@ -51,8 +65,7 @@ export async function getAssetTypes() {
 }
 
 export async function getAssetSizes() {
-  const baseUrl = "https://voyageblur.com";
-  const url = `${baseUrl}/api/assets/getAssetSizes`;
+  const url = `/api/assets/getAssetSizes`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -78,8 +91,7 @@ export async function getAssetSizes() {
 }
 
 export async function submitPostRequest(token: string, submitPostData: Post) {
-  const baseUrl = "https://voyageblur.com";
-  const url = `${baseUrl}/api/posts/submitPost`;
+  const url = `/api/posts/submitPost`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -88,6 +100,13 @@ export async function submitPostRequest(token: string, submitPostData: Post) {
     },
     body: JSON.stringify(submitPostData),
   });
+
+
+  if(!response.ok) {
+    const errorText = await response.text();
+    console.error("Error response:", errorText);
+    throw new Error(`Request failed with status ${response.status}`);
+  }
 
   console.log("Response from submitPostRequest:", response);
 
@@ -109,8 +128,7 @@ export async function submitAssetsRequest(
   assetTypes: AssetType[],
   assetSizes: AssetSize[]
 ) {
-  const baseUrl = "https://voyageblur.com";
-  const url = `${baseUrl}/api/assets/submitAssets`;
+  const url = `/api/assets/submitAssets`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -124,6 +142,14 @@ export async function submitAssetsRequest(
       assetSizes: assetSizes,
     }),
   });
+
+
+  if(!response.ok) {
+    const errorText = await response.text();
+    console.error("Error response:", errorText);
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+
 
   console.log("Response from submitAssetsRequest:", response);
 
