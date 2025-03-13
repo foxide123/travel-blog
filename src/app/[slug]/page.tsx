@@ -16,20 +16,22 @@ import { AssetWithTypeAndSizeNames } from "@/types/asset_types";
     The example url: https://voyageblur.com/exploring-schwarzwald */
 }
 
+type paramsType = Promise<{ slug: string }>;
+;
 export default async function FullPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: paramsType;
 }) {
   const supabase = await supabaseCreateClientServer();
 
-  const pageParams = params.slug;
-  console.log("Page params:", pageParams);
+  const { slug } = await params;
+  console.log("Page params:", slug);
 
   const { data, error } = await supabase
     .from("Posts")
     .select("*")
-    .eq("url_pathname", pageParams)
+    .eq("url_pathname", slug)
     .maybeSingle();
 
   const post = data as Post;
