@@ -10,7 +10,7 @@ import {
   getAssetTypes,
 } from "@/utils/api/post_requests";
 import PostDetailsClient from "@/components/PostDetailsClient";
-import { AssetBody, AssetWithTypeAndSizeNames } from "@/types/asset_types";
+import { AssetWithTypeAndSizeNames } from "@/types/asset_types";
 {
   /* Page with full post.
     The example url: https://voyageblur.com/exploring-schwarzwald */
