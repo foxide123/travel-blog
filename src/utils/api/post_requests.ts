@@ -4,7 +4,7 @@ import { SubmitAssetsBody } from "@/types/asset_types";
 import { AssetSize, AssetType, Post } from "@/types/collection";
 
 export async function getAssets(post_id?: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://voyageblur.com";
+  const baseUrl = "https://voyageblur.com";
   let url = `${baseUrl}/api/assets/getAssets`;
 
   if (post_id) {
@@ -29,7 +29,7 @@ export async function getAssets(post_id?: string) {
 }
 
 export async function getAssetTypes() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://voyageblur.com";
+  const baseUrl = "https://voyageblur.com";
   const url = `${baseUrl}/api/assets/getAssetTypes`;
 
   const response = await fetch(url, {
@@ -51,7 +51,7 @@ export async function getAssetTypes() {
 }
 
 export async function getAssetSizes() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://voyageblur.com";
+  const baseUrl = "https://voyageblur.com";
   const url = `${baseUrl}/api/assets/getAssetSizes`;
   const response = await fetch(url, {
     method: "GET",
@@ -59,6 +59,12 @@ export async function getAssetSizes() {
       "Content-Type": "application/json",
     },
   });
+
+  if(!response.ok) {
+    const errorText = await response.text();
+    console.error("Error response:", errorText);
+    throw new Error(`Request failed with status ${response.status}`);
+  }
 
   const result = await response.json();
   console.log("Parsed result from getAssetSizes:", result);
@@ -72,7 +78,7 @@ export async function getAssetSizes() {
 }
 
 export async function submitPostRequest(token: string, submitPostData: Post) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://voyageblur.com";
+  const baseUrl = "https://voyageblur.com";
   const url = `${baseUrl}/api/posts/submitPost`;
   const response = await fetch(url, {
     method: "POST",
@@ -103,7 +109,7 @@ export async function submitAssetsRequest(
   assetTypes: AssetType[],
   assetSizes: AssetSize[]
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://voyageblur.com";
+  const baseUrl = "https://voyageblur.com";
   const url = `${baseUrl}/api/assets/submitAssets`;
   const response = await fetch(url, {
     method: "POST",
