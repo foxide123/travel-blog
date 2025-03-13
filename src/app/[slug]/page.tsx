@@ -1,4 +1,5 @@
 "use server";
+export const runtime="edge";
 
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { Asset, AssetSize, AssetType, Post } from "@/types/collection";
@@ -17,7 +18,7 @@ import { AssetWithTypeAndSizeNames } from "@/types/asset_types";
 }
 
 type paramsType = Promise<{ slug: string }>;
-;
+
 export default async function FullPostPage({
   params,
 }: {

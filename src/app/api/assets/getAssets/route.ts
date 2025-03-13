@@ -1,4 +1,5 @@
-"use server"
+"use server";
+export const runtime="edge";
 
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";

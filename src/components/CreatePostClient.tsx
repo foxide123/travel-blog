@@ -29,9 +29,6 @@ export default function CreatePostClient() {
   } = useCreatePost();
 
   const handleSubmit = async () => {
-    //const supabase = supabaseCreateClient();
-    //const sessionResponse = await supabase.auth.getSession();
-    //const token = sessionResponse.data.session?.access_token;
     const token = localStorage.getItem("supabase.auth.token")
     if (!token) {
       alert("You are not logged in!");

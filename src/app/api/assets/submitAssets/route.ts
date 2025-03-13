@@ -1,4 +1,5 @@
 "use server";
+export const runtime="edge";
 
 import { NextResponse } from "next/server";
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
