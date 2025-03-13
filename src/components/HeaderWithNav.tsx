@@ -10,7 +10,7 @@ export default function Header() {
       >
         {/* Logo with car and camera icons*/}
         {/* Small screens: header on its own row */}
-        <div className="lg:hidden block w-full aspect-[16/9] relative mb-[-30px]">
+        <div className="sm:hidden block w-full aspect-[16/9] relative mb-[-30px]">
           <Image
             src="/travel_header.svg"
             alt="Travel Header"
@@ -19,7 +19,7 @@ export default function Header() {
             className="mx-auto"
           />
         </div>
-        <div className="flex justify-center items-center mb-5" >
+        <div className="sm:hidden flex justify-center items-center mb-5">
           <div className="w-1/2 aspect-[16/9] relative">
             <Image
               src="/car2_improved.svg"
@@ -40,28 +40,32 @@ export default function Header() {
 
         {/* Logo with car and camera icons*/}
         {/* Large screens: car - header - camera */}
-        <div className="hidden lg:flex lg:justify-around items-center justify-center flex-row">
-          <Image
-            src="/car2_improved.svg"
-            alt="car-icon"
-            width={100}
-            height={100}
-            className="sm:w-full w-[50%]"
-          />
-          <Image
-            src="/travel_header.svg"
-            alt="logo"
-            width={100}
-            height={100}
-            className="mr-20"
-          />
-          <Image
-            src="/camera.svg"
-            alt="camera-icon"
-            width={100}
-            height={100}
-            className="sm:w-full sm:block hidden"
-          />
+        <div className="hidden sm:flex items-center justify-center flex-row pr-10">
+          <div className="w-1/5 aspect-[16/9] relative">
+            <Image
+              src="/car2_improved.svg"
+              alt="car-icon"
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+          <div className="relative w-1/3 aspect-[16/9] mr-8">
+            <Image
+              src="/travel_header.svg"
+              alt="logo"
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+          <div className="relative w-1/6 aspect-[16/9]">
+            <Image
+              src="/camera.svg"
+              alt="camera-icon"
+              layout="fill"
+              objectFit="contain"
+              className=""
+            />
+          </div>
         </div>
 
         {/* Navigation Bar*/}

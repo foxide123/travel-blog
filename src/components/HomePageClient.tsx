@@ -41,10 +41,10 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
   }, []);
 
   return (
-    <div className="">
+    <div className="lg:px-50">
       {/* Latest Story & Blog Introduction*/}
-      <div className="flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:mt-15 mt-0 relative">
-        <div className="w-full aspect-[16/9] relative">
+      <div className="flex lg:flex-row lg:justify-around lg:mt-15 flex-col justify-center items-center mt-0 relative">
+        <div className="lg:w-1/2 lg:mr-10 lg:aspect-[16/9] w-full md:h-50 rounded-2xl overflow-hidden relative">
           <Image
             src="/stories.jpg"
             alt="stories-background"
@@ -70,28 +70,25 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
           </video>
           */}
         </div>
-        <div className="w-full">
-          <h2
-            className="
-              sm:text-5xl
-              text-7xl
-              text-center 
-              tracking-wider
-              sm:relative
-              absolute 
-              top-5
-              left-1/2
-              transform
-              -translate-x-1/2
-              text-amber-50"
-          >
+        <div className="lg:flex lg:flex-col lg:w-1/2 w-full">
+          <h2 className="
+              lg:text-7xl text-7xl text-center tracking-wider 
+              lg:relative absolute 
+              lg:top-auto lg:left-auto top-5 left-1/2
+              lg:tranform-none transform
+              lg:-translate-x-0 -translate-x-1/2
+            lg:text-black text-amber-50">
             Travel Stories
           </h2>
+          <p className="hidden lg:block px-30 pt-10 text-3xl text-center">
+            Through this blog I will be sharing travel and photography stories,
+            tips and anything that I would find interesting and worth sharing 😊
+          </p>
         </div>
       </div>
       {/*Countries Filter*/}
-      <div className="flex sm:flex-row flex-col justify-center items-center mt-20">
-        <div className="w-2/3 aspect-[16/9] relative">
+      <div className="flex lg:flex-row flex-col justify-center items-center mt-20">
+        <div className="lg:w-1/5 w-2/3 aspect-[16/9] relative">
           <Image
             src="/europe.png"
             alt="europe-flag"
@@ -100,7 +97,7 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
           />
         </div>
         {/*Country Filter*/}
-        <div className="flex justify-center text-center sm:ml-20 sm:mt-0 mt-10 ">
+        <div className="flex justify-center text-center lg:ml-20 lg:mt-0 mt-10 ">
           <p className="text-3xl mr-5">Country: </p>
           <div className="relative inline-block" ref={dropdownRef}>
             <button
