@@ -13,7 +13,6 @@ import {
   getAssetSizes,
 } from "../api/post_requests";
 import { Post } from "@/types/collection";
-import Quill from "quill";
 import { NextResponse } from "next/server";
 
 export function useCreatePost() {

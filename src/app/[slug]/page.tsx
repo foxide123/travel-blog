@@ -1,8 +1,7 @@
 "use server";
 
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
-import { Post } from "@/types/collection";
-import { PostWithAssets } from "@/types/post_types";
+import { Asset, AssetSize, AssetType, Post } from "@/types/collection";
 import DOMPurify from "isomorphic-dompurify";
 
 import {
@@ -11,7 +10,7 @@ import {
   getAssetTypes,
 } from "@/utils/api/post_requests";
 import PostDetailsClient from "@/components/PostDetailsClient";
-
+import { AssetBody } from "@/types/asset_types";
 {
   /* Page with full post.
     The example url: https://voyageblur.com/exploring-schwarzwald */
@@ -51,17 +50,18 @@ export default async function FullPostPage({
   console.log("Asset types:", assetTypes);
   console.log("Asset sizes:", assetSizes);
   console.log("Assets:", assets);
+  console.log(creation_date, owner_email, url_pathname, )
 
   {
     /* Return assets with Type and Size Names */
   }
-  const assetsWithDetails = assets.map((asset: any) => {
-    const typeDetail = assetTypes.find((type: any) => {
-      return type["id"] === asset["type"];
+  const assetsWithDetails = assets.map((asset: Asset) => {
+    const typeDetail = assetTypes.find((type: AssetType) => {
+      return type.id === asset.type;
     });
 
     const sizeDetail = assetSizes.find(
-      (size: any) => size["id"] === asset["size"]
+      (size: AssetSize) => size.id === asset.size
     );
 
     return {
@@ -74,15 +74,15 @@ export default async function FullPostPage({
   console.log("Assets with details", assetsWithDetails);
 
   const largeAsset = assetsWithDetails.find(
-    (asset: any) => asset["sizeName"].toLowerCase() === "large"
+    (asset: AssetBody) => asset.size.toLowerCase() === "large"
   );
 
   const mediumAsset = assetsWithDetails.find(
-    (asset: any) => asset["sizeName"].toLowerCase() === "medium"
+    (asset: AssetBody) => asset.size.toLowerCase() === "medium"
   );
 
   const smallAsset = assetsWithDetails.find(
-    (asset: any) => asset["sizeName"].toLowerCase() === "small"
+    (asset: AssetBody) => asset.size.toLowerCase() === "small"
   );
 
   {/* IMPORTANT */}

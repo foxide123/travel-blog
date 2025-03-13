@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { imageToBlob } from "@/utils/posts/imageToBlob";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { Asset, AssetSize, AssetType } from "@/types/collection";
+import { AssetSize, AssetType } from "@/types/collection";
 import { AssetBody } from "@/types/asset_types";
 
 function assetTypeMapping(selectedType:string, assetTypes:Array<AssetType>){
