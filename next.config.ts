@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
         hostname: "yjjvllzoefxvbvzylvsr.supabase.co",
       }
     ],
-  }
+  },
 };
 
 export default nextConfig;

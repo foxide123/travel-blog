@@ -1,10 +1,12 @@
-export const runtime = "edge";
+export const runtime="edge";
 
-export default async function FullPostPage({
-  params,
-}: { params: { slug: string } | Promise<{ slug: string }> }) {
+type FullPostProps = {
+  params: Promise<{ slug: string}>;
+}
+
+export default async function FullPostPage(props: FullPostProps) {
     try{
-      const { slug } = await Promise.resolve(params);
+      const { slug } = await props.params;
       console.log("Params for Post Details:", slug);
       return <p>Hurrah. It works</p>;
     }catch (error){
