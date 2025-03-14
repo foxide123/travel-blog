@@ -2,9 +2,14 @@ export const runtime = "edge";
 
 export default async function FullPostPage({ params }: { params: Promise<{ slug: string }> }) {
   console.log(params);
-  return (
-       <p>Hurrah. It works</p>
-  );
+    try{
+      const { slug } = await params;
+      console.log("Params for Post Details:", slug);
+      return <p>Hurrah. It works</p>;
+    }catch (error){
+      const errorMsg = error instanceof Error ? error.message : "Unknown error";
+      return <p>Error in Post Details: {errorMsg}</p>
+    }
 }
 
 
