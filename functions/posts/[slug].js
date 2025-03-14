@@ -1,3 +1,3 @@
 export function onRequest(context){
-    return new Response(`Slug: ${context.params.posts}`);
+    return new Response(`Slug: ${context.params.slug}`);
 }
