@@ -1,8 +1,9 @@
+"use client"
+import {useParams} from "next/navigation";
 
-export default async function FullPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  console.log(params);
+export default async function FullPostPage() {
     try{
-      const { slug } = await params;
+      const slug = useParams();
       console.log("Params for Post Details:", slug);
       return <p>Hurrah. It works</p>;
     }catch (error){
