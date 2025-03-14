@@ -1,19 +1,12 @@
 export const runtime="edge";
 
-type FullPostProps = {
-  params: Promise<{ slug: string}>;
+export default async function FullPostPage({
+  params,
+}: { params: { slug: string } }) {
+  console.log("Page params:", params.slug);
+  return <p>Hurrah. It works</p>;
 }
 
-export default async function FullPostPage(props: FullPostProps) {
-    try{
-      const { slug } = await props.params;
-      console.log("Params for Post Details:", slug);
-      return <p>Hurrah. It works</p>;
-    }catch (error){
-      const errorMsg = error instanceof Error ? error.message : "Unknown error";
-      return <p>Error in Post Details: {errorMsg}</p>
-    }
-}
 
 
 
