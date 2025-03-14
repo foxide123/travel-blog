@@ -1,9 +1,12 @@
-"use client"
-import {useParams} from "next/navigation";
+export const runtime="edge";
 
-export default function FullPostPage() {
+type FullPostProps = {
+  params: Promise<{ slug: string}>;
+}
+
+export default async function FullPostPage(props: FullPostProps) {
     try{
-      const slug = useParams();
+      const { slug } = await props.params;
       console.log("Params for Post Details:", slug);
       return <p>Hurrah. It works</p>;
     }catch (error){
