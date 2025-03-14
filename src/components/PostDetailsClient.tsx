@@ -1,3 +1,5 @@
+"use client"
+
 interface PostDetailsProps {
   largeAssetPath: string | null | undefined;
   mediumAssetPath: string | null | undefined;

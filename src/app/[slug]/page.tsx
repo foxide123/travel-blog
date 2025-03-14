@@ -1,18 +1,9 @@
-import PostDetailsClient from "@/components/PostDetailsClient";
 export const runtime = "edge";
 
-type paramsType = Promise<{ slug: string }>;
-
-export default async function FullPostPage({ params }: { params: paramsType }) {
+export default async function FullPostPage({ params }: { params: Promise<{ slug: string }> }) {
   console.log(params);
   return (
-        <PostDetailsClient
-           largeAssetPath=""
-           mediumAssetPath=""
-           smallAssetPath=""
-           header=""
-           content=""
-         />
+       <p>Hurrah. It works</p>
   );
 }
 
