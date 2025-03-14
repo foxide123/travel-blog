@@ -1,7 +1,7 @@
 "use client"
 import {useParams} from "next/navigation";
 
-export default async function FullPostPage() {
+export default function FullPostPage() {
     try{
       const slug = useParams();
       console.log("Params for Post Details:", slug);
