@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^2.49.1",
     "isomorphic-dompurify": "^2.22.0",
     "next": "15.2.0",
+    "next-on-pages-monorepo": "github:cloudflare/next-on-pages",
     "quill": "^2.0.3",
     "react": "^19.0.0",
     "react-cropper": "^2.3.3",

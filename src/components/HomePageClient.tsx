@@ -127,7 +127,7 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
             className="w-110 h-100 bg-amber-50 flex flex-col mt-10 rounded-2xl overflow-hidden"
             key={post.id}
           >
-            <Link href={`/${post.url_pathname}`}>
+            <Link href={`/posts/${post.url_pathname}`}>
               <div className="relative w-full aspect-[16/9]">
                 <Image
                   src={post.assets![0]}
