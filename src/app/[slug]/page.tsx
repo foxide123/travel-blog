@@ -2,10 +2,12 @@ export const runtime="edge";
 
 export default async function FullPostPage({
   params,
-}: { params: { slug: string } }) {
-  console.log("Page params:", params.slug);
+}: { params: { slug: string } | Promise<{ slug: string }> }) {
+  const { slug } = await Promise.resolve(params);
+  console.log("Page params:", slug);
   return <p>Hurrah. It works</p>;
 }
+
 
 
 
