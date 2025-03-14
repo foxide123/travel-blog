@@ -1,4 +1,3 @@
-export const runtime = "edge";
 
 export default async function FullPostPage({ params }: { params: Promise<{ slug: string }> }) {
   console.log(params);
