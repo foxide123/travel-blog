@@ -10,8 +10,6 @@ export async function GET() {
 
     const { data, error } = await supabase.from("AssetSize").select();
 
-    console.log("In getAssetSizes route, data:", data);
-
     if (error) {
       console.error("Error retrieving asset size records: ", error);
       return NextResponse.json(

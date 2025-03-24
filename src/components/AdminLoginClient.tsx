@@ -29,8 +29,6 @@ export default function AdminLoginClient() {
       return;
     }
 
-    console.log("Session from API:", result.session);
-
     localStorage.setItem("supabase.auth.token", result.session.access_token);
     router.push("/admin/create-post");
   };

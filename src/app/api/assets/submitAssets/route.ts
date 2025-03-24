@@ -18,8 +18,6 @@ function assetTypeMapping(selectedType:string, assetTypes:Array<AssetType>){
   }
   
   for (let i=0; i<assetTypes.length; i++){
-    console.log("Selected Type: ", selectedType);
-    console.log("AssetTypes: ", assetTypes);
     if (selectedType.toLowerCase() === assetTypes[i].type){
       assetTypeId = assetTypes[i].id;
     }
@@ -38,8 +36,6 @@ function assetSizeMapping(selectedSize:string, assetSizes:Array<AssetSize>){
   }
   
   for (let i=0; i<assetSizes.length; i++){
-    console.log("Selected Size: ", selectedSize);
-    console.log("AssetSize: ", assetSizes[i].size.toLowerCase());
     if (selectedSize.toLowerCase() === assetSizes[i].size.toLowerCase()){
       assetSizeId = assetSizes[i].id;
     }
@@ -68,7 +64,6 @@ async function submitImage(asset: AssetBody, supabase: SupabaseClient) {
 
 export async function POST(req: Request) {
   try {
-    console.log("inside submitAssets route");
     const authHeader = req.headers.get("authorization");
     const token = authHeader ? authHeader.split(" ")[1] : null;
     if (!token) {
@@ -95,8 +90,6 @@ export async function POST(req: Request) {
             { status: 500 }
           );
         }
-
-        console.log("Image data:", data);
 
         const { error: insertError } = await supabase.from("Assets").insert({
           caption: asset.caption,

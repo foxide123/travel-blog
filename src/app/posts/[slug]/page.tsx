@@ -21,8 +21,7 @@ export default async function FullPostPage({ params }: { params: paramsType }) {
   const supabase = await supabaseCreateClientServer();
 
   const { slug } = await params;
-  console.log("Page params:", slug);
-
+  
   const { data, error } = await supabase
     .from("Posts")
     .select("*")
@@ -36,6 +35,7 @@ export default async function FullPostPage({ params }: { params: paramsType }) {
     return <div>{error?.message}</div>;
   }
 
+  //eslint-disable-next-line
   const { content, creation_date, header, id, owner_email, url_pathname } =
     post;
 
@@ -43,11 +43,6 @@ export default async function FullPostPage({ params }: { params: paramsType }) {
   const assetSizes = await getAssetSizes();
   const assets = await getAssets(id);
   //const assets = (await (await getAssets(id)).json());
-
-  console.log("Asset types:", assetTypes);
-  console.log("Asset sizes:", assetSizes);
-  console.log("Assets:", assets);
-  console.log(creation_date, owner_email, url_pathname);
 
   {
     /* Return assets with Type and Size Names */
@@ -69,8 +64,6 @@ export default async function FullPostPage({ params }: { params: paramsType }) {
       };
     }
   );
-
-  console.log("Assets with details", assetsWithDetails);
 
   const largeAsset = assetsWithDetails.find(
     (asset: AssetWithTypeAndSizeNames) => asset.sizeName === "large"

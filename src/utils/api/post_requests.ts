@@ -27,7 +27,6 @@ export async function getAssets(post_id?: string) {
 
 
   const result = await response.json();
-  console.log("Parsed result from getAssets:", result);
 
   if (result.data && Array.isArray(result.data) && result.data.length > 0) {
     const resultData = result.data;
@@ -58,7 +57,6 @@ export async function getAssetTypes() {
 
 
   const result = await response.json();
-  console.log("Parsed result from getAssetTypes:", result);
 
   if (result.data && Array.isArray(result.data) && result.data.length > 0) {
     const resultData = result.data;
@@ -86,7 +84,6 @@ export async function getAssetSizes() {
   }
 
   const result = await response.json();
-  console.log("Parsed result from getAssetSizes:", result);
 
   if(result.data && Array.isArray(result.data) && result.data.length > 0) {
     const resultData = result.data;
@@ -116,10 +113,7 @@ export async function submitPostRequest(token: string, submitPostData: Post) {
     throw new Error(`Request failed with status ${response.status}`);
   }
 
-  console.log("Response from submitPostRequest:", response);
-
   const result = await response.json();
-  console.log("Parsed result from submitPostRequest:", result);
 
   if (result.data && Array.isArray(result.data) && result.data.length > 0) {
     const postId = result.data[0].id;
@@ -153,10 +147,7 @@ export async function submitAssetsRequest(
     }),
   });
 
-  console.log("Response from submitAssetsRequest:", response);
-
   const result = await response.json();
-  console.log("Parsed result from submitAssetsRequest:", result);
 
   if (result['success']) {
     const resultData = result.data;

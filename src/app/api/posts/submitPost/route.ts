@@ -39,9 +39,7 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-    console.log("Post inserted successfully:", JSON.parse(JSON.stringify(data)));
-
-
+    
     return NextResponse.json({ data: JSON.parse(JSON.stringify(data)) });
   } catch (error) {
     console.error("API error:", error);

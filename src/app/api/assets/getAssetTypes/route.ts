@@ -12,8 +12,6 @@ export async function GET() {
       .from("AssetType")
       .select();
   
-    console.log("In getAssetTypes route, data:", data);
-  
     if (error) {
       console.error("Error retrieving asset type records: ", error);
       return NextResponse.json(

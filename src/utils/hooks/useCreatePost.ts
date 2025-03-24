@@ -21,9 +21,8 @@ export function useCreatePost() {
   const [imageName, setImageName] = useState<string>("");
   const [postHeader, setPostHeader] = useState<string>("");
   const [postPathname, setPostPathname] = useState<string>("");
+  //eslint-disable-next-line
   const [quillInstance, setQuillInstance] = useState<Quill | null>(null);
-
-  console.log(quillInstance);
 
   const [selectedImages, setSelectedImages] = useState<{
     [key: string]: string | null;
@@ -36,7 +35,6 @@ export function useCreatePost() {
   const handleImageSelect = (screenSize: string, imageSrc: string) => {
     setSelectedImages((prevImages) => {
       const updatedImages = { ...prevImages, [screenSize]: imageSrc };
-      console.log("Updated selectedImages:", updatedImages); // Debugging line
       return updatedImages;
     });
   };
@@ -90,13 +88,8 @@ export function useCreatePost() {
     try {
 
       const assetTypes = await getAssetTypes();
-      console.log("Asset types:", assetTypes);
-
       const assetSizes = await getAssetSizes();
-      console.log("Asset Sizes:", assetSizes);
-
       const postId = await submitPostRequest(token, submitPostData);
-      console.log("Post response: ", postId);
 
       const assetsResponse = await submitAssetsRequest(
         token,
@@ -105,8 +98,8 @@ export function useCreatePost() {
         assetTypes,
         assetSizes
       );
+      console.log("Post submitted successfuly:", assetsResponse);
 
-      console.log("Assets Response:", assetsResponse);
       return NextResponse.json({ success:true});
 
     } catch (error) {
