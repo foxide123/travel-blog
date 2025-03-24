@@ -122,19 +122,17 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
       </div>
       {/*Blog Posts*/}
       <div className="flex flex-wrap justify-around p-5 mt-10">
-        {posts.map((post) => (
+        {posts.map((post:PostWithAssets) => (
           <div
             className="w-110 h-100 bg-amber-50 flex flex-col mt-10 rounded-2xl overflow-hidden"
             key={post.id}
           >
             <Link href={`/posts/${post.url_pathname}`}>
               <div className="relative w-full aspect-[16/9]">
-                <Image
+                <img
                   src={post.assets![0]}
                   alt="post-image"
-                  layout="fill"
-                  objectFit="cover"
-                  className="object-cover"
+                  className="object-cover w-full h-full "
                 />
               </div>
               {/*Text and Data*/}
