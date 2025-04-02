@@ -10,7 +10,7 @@ export default function GallerySection({
       className=" caret-transparent w-screen flex justify-center items-center bg-white"
     >
       <div
-        className={`text-center text-wrap pt-10 z-10 relative ${large_screen_width} ${default_screen_width}`}
+        className={`text-center text-wrap pt-10 pb-30 z-10 relative ${large_screen_width} ${default_screen_width}`}
       >
         <h3 className="text-2xl font-semibold">Gallery</h3>
         <h1 className="font-normal text-[64px]">Through The Analog Lens</h1>
@@ -21,10 +21,10 @@ export default function GallerySection({
         {/*Gallery Pictures*/}
         <div className="mt-10 flex flex-col">
           <div className="flex flex-row flex-wrap gap-10">
-            <div className="relative min-w-[500px] flex-1 aspect-[16/9] rounded-2xl overflow-hidden">
+            <div className="relative lg:min-w-[500px] min-w-[250px] flex-1 aspect-[16/9] rounded-2xl overflow-hidden">
               <Image src="/hero_bg.png" alt="Gallery Picture" fill/>
             </div>
-            <div className="relative min-w-[500px] flex-1 aspect-[16/9]">
+            <div className="relative lg:min-w-[500px] min-w-[250px] flex-1 aspect-[16/9] rounded-2xl overflow-hidden">
               <Image src="/hero_bg.png" alt="Gallery Picture" fill/>
             </div>
           </div>

@@ -35,7 +35,7 @@ export default function FeaturedStoriesSection({
   return (
     <div className="caret-transparent flex w-screen items-center justify-center bg-custom-bg">
       <div
-        className={`mt-32 mb-32 flex flex-col ${default_screen_width} ${large_screen_width} border-2 border-amber-500`}
+        className={`lg:my-32 my-10 flex flex-col ${default_screen_width} ${large_screen_width}`}
       >
         <h1 className="font-bold text-[72px]">Featured Stories</h1>
         <h2 className="text-custom-font-gray font-semibold text-2xl">
