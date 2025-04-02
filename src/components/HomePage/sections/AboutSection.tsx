@@ -19,12 +19,12 @@ export default function HeroSection({
         <p className="col-start-1 col-span-1 lg:row-start-7  lg:row-span-6 lg:mt-0 mt-10 lg:pr-[50px] row-start-5 row-span-6  font-normal text-base text-custom-font-gray">
           Founded in 2025, VoyageBlur was born from a passion for capturing the
           world through the unique aesthetics of analog film. In a digital age,
-          we believe there's something magical about the imperfect, tangible
+          we believe there&apos;s something magical about the imperfect, tangible
           nature of film photography. Our mission is to document travel
           experiences with authenticity and character that only analog formats
           can provide. Each grain, light leak, and imperfection tells part of
-          the journey's story. We believe that travel isn't just about visiting
-          places—it's about experiencing them deeply, slowly, and thoughtfully.
+          the journey&apos;s story. We believe that travel isn&apos;t just about visiting
+          places—it&apos;s about experiencing them deeply, slowly, and thoughtfully.
           Just like the deliberate process of shooting film forces you to slow
           down and consider each frame.
         </p>
