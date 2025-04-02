@@ -2,8 +2,8 @@
 import { Destinations } from "@/data/destinations_data";
 import { LayoutSizeProps } from "@/types/layout_types";
 import Image from "next/image";
-import { useId } from "react";
-
+/* import { useId } from "react";
+ */
 export default function HeroSection({
   default_screen_width,
   large_screen_width,
@@ -11,9 +11,8 @@ export default function HeroSection({
 
 
   const destinationItems = Destinations.map((destination) => {
-    const destinationItemId = useId();
     return (
-      <div key={destinationItemId} className=" w-[330px] h-[301px] rounded-2xl relative overflow-hidden">
+      <div key={destination.name} className=" w-[330px] h-[301px] rounded-2xl relative overflow-hidden">
         <Image src="/hero_bg.png" alt="Destination Picture" fill />
         <div className="flex flex-row justify-center absolute bottom-0 h-5 w-full mb-10">
           <img
@@ -33,12 +32,12 @@ export default function HeroSection({
   return (
     <div className="caret-transparent w-screen flex justify-center items-center bg-custom-bg">
       <div
-        className={`border-2 border-green-500 mt-20 mb-20 ${default_screen_width} ${large_screen_width} flex flex-col justify-center items-center`}
+        className={`mt-20 mb-20 ${default_screen_width} ${large_screen_width} flex flex-col justify-center items-center`}
       >
         <h2 className="font-normal text-base">EXPLORE</h2>
         <h1 className="font-normal text-6xl">Destinations</h1>
         <h3 className="font-normal text-2xl text-custom-font-gray">
-          Discover the places we've captured through our analog lenses, each
+          Discover the places we&apos;ve captured through our analog lenses, each
           with its own unique stories and film aesthetics
         </h3>
         {/* Destination Items Wrapper */}

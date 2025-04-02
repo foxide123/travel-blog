@@ -10,7 +10,7 @@ export default function GallerySection({
       className=" caret-transparent w-screen flex justify-center items-center bg-white"
     >
       <div
-        className={`text-center text-wrap pt-10 z-10 relative ${large_screen_width} ${default_screen_width} border-2 border-green-500`}
+        className={`text-center text-wrap pt-10 z-10 relative ${large_screen_width} ${default_screen_width}`}
       >
         <h3 className="text-2xl font-semibold">Gallery</h3>
         <h1 className="font-normal text-[64px]">Through The Analog Lens</h1>

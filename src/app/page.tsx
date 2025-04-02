@@ -1,7 +1,7 @@
 "use client";
 
-import { supabaseCreateClientServer } from "@/utils/supabase/server";
-import { PostWithAssets } from "@/types/post_types";
+/* import { supabaseCreateClientServer } from "@/utils/supabase/server";
+import { PostWithAssets } from "@/types/post_types"; */
 import HeroSection from "@/components/HomePage/sections/HeroSection";
 import { ScreenSizeEnum } from "@/types/layout_types";
 import FeaturedStoriesSection from '../components/HomePage/sections/FeaturedStoriesSection';

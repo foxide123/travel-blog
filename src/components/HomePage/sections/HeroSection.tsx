@@ -22,7 +22,7 @@ export default function HeroSection({
       </div>
 
       <div
-        className={`text-wrap h-screen pt-10 z-10 relative ${large_screen_width} ${default_screen_width} border-2 border-green-500 h-full`}
+        className={`text-wrap h-screen pt-10 z-10 relative ${large_screen_width} ${default_screen_width} h-full`}
       >
         {/* Navbar */}
         <div className="flex flex-row justify-between items-center">
