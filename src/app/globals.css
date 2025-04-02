@@ -3,6 +3,14 @@
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-custom-button-gray: #6D6D6D80;
+  
+  --color-custom-button-border-gray: #70635C;
+
+  --color-custom-font-gray: #908F8F;
+
+  --color-custom-bg: #FFFAEF;
 }
 
 :root {
@@ -25,7 +33,7 @@ body {
   color: var(--foreground);
   background-color: #f7ecea;
   /*background: var(--background);*/
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Playfair Display", Arial, Helvetica, sans-serif;
 }
 
 .text-outline {

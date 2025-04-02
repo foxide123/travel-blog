@@ -1,10 +1,16 @@
-"use server";
+"use client";
 
 import { supabaseCreateClientServer } from "@/utils/supabase/server";
-import HomePageClient from "@/components/HomePageClient";
 import { PostWithAssets } from "@/types/post_types";
+import HeroSection from "@/components/HomePage/sections/HeroSection";
+import { ScreenSizeEnum } from "@/types/layout_types";
+import FeaturedStoriesSection from '../components/HomePage/sections/FeaturedStoriesSection';
+import AboutSection from "@/components/HomePage/sections/AboutSection";
+import DestinationsSection from "@/components/HomePage/sections/DestinationsSection";
+import GallerySection from "@/components/HomePage/sections/GallerySection";
 
-export default async function HomePage() {
+export default function HomePage() {
+  {/*
   const supabase = await supabaseCreateClientServer();
 
   let posts: PostWithAssets[];
@@ -32,8 +38,16 @@ export default async function HomePage() {
       };
     }
   }
-
-  return <HomePageClient posts={posts} />;
+*/}
+    return (
+      <div>
+        <HeroSection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size} />
+        <FeaturedStoriesSection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size}/>
+        <AboutSection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size}/>
+        <DestinationsSection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size}/>
+        <GallerySection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size}/>
+      </div>
+    )
 }
 
 /*

@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from 'next/script'
+import Script from "next/script";
 import "./globals.css";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import HeaderWithNav from "@/components/HeaderWithNav";
 config.autoAddCss = false;
 
 const geistSans = Geist({
@@ -31,13 +30,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen`}
       >
-        <HeaderWithNav/>
+        {/* <HeaderWithNav/> */}
         {children}
       </body>
     </html>
