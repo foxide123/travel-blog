@@ -13,7 +13,7 @@ export default function HeroSection({
   const destinationItems = Destinations.map((destination) => {
     return (
       <div key={destination.name} className=" lg:w-[330px] lg:h-[301px] w-[250px] h-[250px] rounded-2xl relative overflow-hidden">
-        <Image src="/hero_bg.png" alt="Destination Picture" fill />
+        <Image src="https://imagedelivery.net/Ap_RIQMnvK_LYOq1vIFisQ/37aed710-e371-4714-0520-f51fcb57da00/hd1920x1080" alt="Destination Picture" fill />
         <div className="flex flex-row justify-center absolute bottom-0 h-5 w-full mb-10">
           <img
             src="/location_icon.svg"
