@@ -40,7 +40,7 @@ export default function HomePage() {
   }
 */}
     return (
-      <div>
+      <div className="overflow-hidden">
         <HeroSection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size} />
         <FeaturedStoriesSection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size}/>
         <AboutSection default_screen_width={ScreenSizeEnum.default_size} large_screen_width={ScreenSizeEnum.large_size}/>
