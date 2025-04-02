@@ -10,7 +10,7 @@ export default function HeroSection({
       {/* Bg Image */}
       <div className="fixed inset-0 -z-10">
         <Image
-          src="/hero_bg.png"
+          src="https://imagedelivery.net/Ap_RIQMnvK_LYOq1vIFisQ/37aed710-e371-4714-0520-f51fcb57da00/hd1920x1080"
           alt="hero background"
           fill
           style={{ objectFit: "cover" }}

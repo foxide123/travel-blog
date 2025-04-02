@@ -1,5 +1,3 @@
-"use client";
-
 /* import { supabaseCreateClientServer } from "@/utils/supabase/server";
 import { PostWithAssets } from "@/types/post_types"; */
 import HeroSection from "@/components/HomePage/sections/HeroSection";

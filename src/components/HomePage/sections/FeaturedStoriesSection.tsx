@@ -13,7 +13,7 @@ export default function FeaturedStoriesSection({
         className={`max-w-[400px] w-full`}
       >
         <Image
-          src="/hero_bg.png"
+          src="https://imagedelivery.net/Ap_RIQMnvK_LYOq1vIFisQ/37aed710-e371-4714-0520-f51fcb57da00/hd1920x1080"
           alt="Story Image"
           width={451}
           height={302}
@@ -47,9 +47,9 @@ export default function FeaturedStoriesSection({
           {stories}
         </div>
 
-        <button onClick={()=>{}} className="px-10 py-3 rounded-xl">
+        {/* <button onClick={()=>{}} className="px-10 py-3 rounded-xl">
             View All Posts
-        </button>
+        </button> */}
       </div>
     </div>
   );
