@@ -18,6 +18,8 @@ export default function HeroSection({
           priority
           decoding="async"
           sizes="100vw"
+          placeholder="blur"
+          blurDataURL="/travel_bg_image_reduced.jpg"
         />
       </div>
 
